@@ -1,0 +1,43 @@
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+local.properties
+
+# --- Android / Gradle ---
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.keystore
+*.jks
+*.iml
+.idea/
+.kotlin/
+
+# --- Supabase ---
+supabase/.branches/
+supabase/.temp/
+
+# --- LaTeX ---
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.bcf
+*.run.xml
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.vscode/

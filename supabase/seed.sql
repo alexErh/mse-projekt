@@ -1,0 +1,1 @@
+-- Testdaten für die lokale Entwicklung (supabase db reset)
