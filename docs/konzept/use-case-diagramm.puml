@@ -1,0 +1,37 @@
+@startuml use-case-diagramm
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Nutzer:in" as Nutzer
+actor "KI-Dienst\n(nur falls extern)" as KI
+
+rectangle "Hautcheck-App (MVP)" {
+  usecase "UC-01\nHautstelle prüfen" as UC01
+  usecase "UC-02\nEignung prüfen" as UC02
+  usecase "UC-03\nFoto aufnehmen" as UC03
+  usecase "UC-04\nBildqualität prüfen" as UC04
+  usecase "UC-05\nRisiko einstufen" as UC05
+  usecase "UC-06\nHandlungsempfehlung anzeigen" as UC06
+  usecase "UC-07\nAn Arzt verweisen" as UC07
+  usecase "UC-08\nLäsion anlegen und verorten" as UC08
+  usecase "UC-09\nVerlauf einsehen" as UC09
+  usecase "UC-10\nErinnerung einstellen" as UC10
+  usecase "UC-11\nAn Kontrolle erinnert werden" as UC11
+}
+
+Nutzer --> UC01
+Nutzer --> UC08
+Nutzer --> UC09
+Nutzer --> UC10
+Nutzer --> UC11
+UC05 <-- KI
+
+UC01 ..> UC02 : <<include>>
+UC01 ..> UC03 : <<include>>
+UC01 ..> UC05 : <<include>>
+UC01 ..> UC06 : <<include>>
+UC03 ..> UC04 : <<include>>
+UC07 ..> UC01 : <<extend>>
+UC08 ..> UC01 : <<extend>>
+@enduml
