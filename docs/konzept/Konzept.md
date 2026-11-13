@@ -81,38 +81,38 @@ Für die KI-Auswertung sieht der Architekturentwurf zusätzliche Einschränkunge
 
 Die kleinste nützliche Version der App ermöglicht es, eine Hautstelle zu fotografieren, eine Risikoeinschätzung zu erhalten und daraus eine klare Handlungsempfehlung abzuleiten. Schon damit erfüllt die App ihren Kernzweck: Nutzer erkennen, ob eine Hautveränderung ärztlich abgeklärt werden sollte.
 
-### 4.2 Anwendungsfälle
+### 4.2 MVP-Funktionalitäten
 
-| # | Anwendungsfall | Kategorie |
-|---|---|---|
-| UC1 | Hautstelle mit geführter Kamera fotografieren | MVP |
-| UC2 | Risikoeinschätzung mit Handlungsempfehlung erhalten | MVP |
-| UC3 | Verlauf einer Hautstelle ansehen | MVP |
-| UC4 | Erinnerung an die nächste Kontrolle erhalten | MVP |
-| UC5 | Hautarzt in der Nähe über Google Maps finden | Nicht MVP |
-| UC6 | Warnung bei hohem UV-Index erhalten | Nicht MVP |
+Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum Viable Product (MVP) ausgewählt. Die zugehörigen Anwendungsfälle sind in Kapitel 5 beschrieben.
 
-Verbindlich im Kurs setzen wir die Anwendungsfälle UC1 bis UC4 um. UC5 und UC6 gehören zur langfristigen Vision und werden nur umgesetzt, wenn Zeit bleibt.
-
-### 4.3 MVP-Funktionalitäten
-
-Im Laufe der Marktanalyse wurden weitere Funktionalitäten identifiziert, die zu unserem Minimum Viable Product (MVP) gehören sollen. Sie bilden die technischen Bausteine der Anwendungsfälle UC1 bis UC4:
-
-| # | Bereich | Feature | Beschreibung | Gesehen bei | Anwendungsfall |
+| ID | Bereich | Feature | Beschreibung | Gesehen bei | Use Case |
 |---|---|---|---|---|---|
-| 1 | Bildaufnahme | Geführte Kameraaufnahme | Overlay, Abstand, Fokus, automatischer Auslöser | SkinVision, SkinScreener, DERM Zero | UC1 |
-| 2 | Bildaufnahme | Bildqualitätsprüfung | Unschärfe, Licht, Haare und Ausschnitt erkennen und eine Neuaufnahme verlangen | SkinVision, DermEngine | UC1 |
-| 3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC2 |
-| 4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC2 |
-| 5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC2 |
-| 6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie | SkinVision, Miiskin, MoleScope | UC3 |
-| 7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC3 |
-| 8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC4 |
+| F1 | Bildaufnahme | Geführte Kameraaufnahme | Overlay, Abstand, Fokus, automatischer Auslöser | SkinVision, SkinScreener, DERM Zero | UC-03 |
+| F2 | Bildaufnahme | Bildqualitätsprüfung | Unschärfe, Licht, Haare und Ausschnitt erkennen und eine Neuaufnahme verlangen | SkinVision, DermEngine | UC-04 |
+| F3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC-05 |
+| F4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC-02, UC-07 |
+| F5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC-06 |
+| F6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie | SkinVision, Miiskin, MoleScope | UC-08, UC-09 |
+| F7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
+| F8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
 
-Zusätzliche Funktionalitäten, die eventuell implementiert werden, sind:
+Der Hauptanwendungsfall UC-01 *Hautstelle prüfen* verbindet die Features F1 bis F5 zu einem Ablauf.
 
-- UV-Index-Warnung (UC6)
-- Arztsuche über Google Maps (UC5)
+### 4.3 Nicht-MVP-Funktionalitäten
+
+Die folgenden Funktionalitäten gehören zur langfristigen Vision und werden im Kurs nur umgesetzt, wenn Zeit bleibt:
+
+| ID | Feature | Beschreibung |
+|---|---|---|
+| F9 | Arztsuche | Hautarzt in der Nähe über Google Maps finden |
+| F10 | UV-Index-Warnung | Warnung bei hohem UV-Index |
+| F11 | Symptom-Fragebogen | Symptome wie Juckreiz oder Blutung angeben |
+| F12 | Dermatologen-Zweitprüfung | Ergebnis von einem Hautarzt prüfen lassen |
+| F13 | PDF-Bericht | Ergebnis als PDF exportieren |
+| F14 | Seitenvergleich | Läsionsfotos direkt nebeneinander vergleichen |
+| F15 | Risikoprofil und Hauttyp | Risikoprofil und Hauttyp dauerhaft pflegen |
+| F16 | Teledermatologie | Fall an einen Facharzt senden |
+| F17 | Konto und Einwilligung | Registrieren und Einwilligungen verwalten |
 
 ### 4.4 Kriterien für die MVP-Auswahl
 
@@ -129,7 +129,7 @@ Der MVP-Umfang ist im Kurszeitraum von [X Wochen] mit 4 Personen realistisch, we
 
 # 5. Anwendungsfälle und Akteure
 
-MVP-Umfang: Features 1, 2, 6, 10, 11, 14, 15, 19 aus der [Marktanalyse](Hautkrebs-Erkennungs-Apps%20Marktanalyse%20&%20MVP-Features.md). Die App ist ein Prototyp und kein zugelassenes Medizinprodukt.
+MVP-Umfang: Features F1 bis F8 aus Kapitel 4. Die App ist ein Prototyp und kein zugelassenes Medizinprodukt.
 
 Diagramm: [use-case-diagramm.puml](use-case-diagramm.puml)
 
@@ -145,16 +145,16 @@ Diagramm: [use-case-diagramm.puml](use-case-diagramm.puml)
 | ID | Use Case | Akteur | Beziehungen | Feature |
 | --- | --- | --- | --- | --- |
 | UC-01 | Hautstelle prüfen (Hauptanwendungsfall) | Nutzer:in | include: UC-02, UC-03, UC-05, UC-06; extend: UC-07, UC-08 | – |
-| UC-02 | Eignung prüfen | – | Teil von UC-01 | 10 |
-| UC-03 | Foto aufnehmen | – | Teil von UC-01; include: UC-04 | 1 |
-| UC-04 | Bildqualität prüfen | – | Teil von UC-03 | 2 |
-| UC-05 | Risiko einstufen | KI-Dienst (falls extern) | Teil von UC-01 | 6 |
-| UC-06 | Handlungsempfehlung anzeigen | – | Teil von UC-01 | 11 |
-| UC-07 | An Arzt verweisen | – | erweitert UC-01 | 10 |
-| UC-08 | Läsion anlegen und verorten | Nutzer:in | erweitert UC-01, auch direkt nutzbar | 14, 15 |
-| UC-09 | Verlauf einsehen | Nutzer:in | – | 14, 15 |
-| UC-10 | Erinnerung einstellen | Nutzer:in | – | 19 |
-| UC-11 | An Kontrolle erinnert werden | Nutzer:in | – | 19 |
+| UC-02 | Eignung prüfen | – | Teil von UC-01 | F4 |
+| UC-03 | Foto aufnehmen | – | Teil von UC-01; include: UC-04 | F1 |
+| UC-04 | Bildqualität prüfen | – | Teil von UC-03 | F2 |
+| UC-05 | Risiko einstufen | KI-Dienst (falls extern) | Teil von UC-01 | F3 |
+| UC-06 | Handlungsempfehlung anzeigen | – | Teil von UC-01 | F5 |
+| UC-07 | An Arzt verweisen | – | erweitert UC-01 | F4 |
+| UC-08 | Läsion anlegen und verorten | Nutzer:in | erweitert UC-01, auch direkt nutzbar | F6, F7 |
+| UC-09 | Verlauf einsehen | Nutzer:in | – | F6, F7 |
+| UC-10 | Erinnerung einstellen | Nutzer:in | – | F8 |
+| UC-11 | An Kontrolle erinnert werden | Nutzer:in | – | F8 |
 
 ## 5.3 Beschreibungen
 
@@ -266,20 +266,20 @@ Alle Use Cases sind Kategorie MVP und Typ funktional.
 
 | Use Case | Feature |
 | --- | --- |
-| Bericht als PDF exportieren | 13 |
-| Symptome angeben | 8 |
-| Risikoprofil und Hauttyp pflegen | 20 |
-| Läsionsfotos direkt vergleichen | 16 |
-| Ergebnis von Dermatolog:in prüfen lassen | 12 |
-| Fall an Teledermatologie senden | 23 |
-| Registrieren und Einwilligung verwalten | 27 |
+| Bericht als PDF exportieren | F13 |
+| Symptome angeben | F11 |
+| Risikoprofil und Hauttyp pflegen | F15 |
+| Läsionsfotos direkt vergleichen | F14 |
+| Ergebnis von Dermatolog:in prüfen lassen | F12 |
+| Fall an Teledermatologie senden | F16 |
+| Registrieren und Einwilligung verwalten | F17 |
 
 ## 5.5 Offene Entscheidungen
 
 | Frage | Auswirkung auf die Use Cases | Auswirkung auf den Stack |
 | --- | --- | --- |
 | KI on-device oder im Backend/extern? | KI-Dienst ist Akteur oder entfällt; UC-01 braucht ggf. Offline-Fall | LiteRT oder eigener Python-Dienst/externe API |
-| Daten lokal oder in Supabase? | Bei Cloud-Speicherung kommt „Anmelden“ ins MVP (Feature 27) | Room oder Supabase Auth/DB/Storage |
+| Daten lokal oder in Supabase? | Bei Cloud-Speicherung kommt „Anmelden“ ins MVP (F17) | Room oder Supabase Auth/DB/Storage |
 | Erinnerung lokal oder per Push? | keine | WorkManager/AlarmManager oder FCM |
 | Qualitätsprüfung live oder nach dem Foto? | Auslöser in UC-03 automatisch oder manuell | CameraX-Analyse oder Prüfung des fertigen Bilds |
 | Selbstauskunft je Prüfung oder einmalig? | Ablauf von UC-02 | Speicherung der Angaben |
