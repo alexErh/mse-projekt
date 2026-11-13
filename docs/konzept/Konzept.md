@@ -96,6 +96,8 @@ Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum 
 | F7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
 | F8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
 
+**Geführte Kameraaufnahme (F1):** Die App unterstützt beim Fotografieren, statt nur die Kamera zu öffnen. Ein Overlay im Kamerabild zeigt, wo die Hautstelle liegen soll, und Hinweise wie „näher heran“ oder „mehr Licht“ helfen, Abstand, Fokus und Belichtung richtig einzustellen. Sobald die Bedingungen passen, kann die App das Foto automatisch auslösen. So entstehen gleichmäßige Aufnahmen, die sich für die KI-Analyse und den späteren Vergleich im Verlauf eignen.
+
 Der Hauptanwendungsfall UC-01 *Hautstelle prüfen* verbindet die Features F1 bis F5 zu einem Ablauf.
 
 ### 4.3 Nicht-MVP-Funktionalitäten
