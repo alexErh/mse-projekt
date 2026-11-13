@@ -1,22 +1,20 @@
 ## 1. Projektbeschreibung und Kontext
 
-### 1.1 In einem Satz
+### 1.1 Einleitung
 
-[App-Name] ist eine Smartphone-App, die Fotos von Hautveränderungen mit KI auswertet, das Hautkrebsrisiko in drei Stufen einschätzt und bei Auffälligkeiten den Besuch bei einem Arzt empfiehlt.
+Im Rahmen unseres Projekts entwickeln wir eine Smartphone-Anwendung zur Objekterkennung. Als Anwendungsfeld haben wir die Hautkrebsvorsorge gewählt, konkret die Erkennung maligner Hautläsionen auf Fotos. [App-Name] wertet Aufnahmen von Hautveränderungen mit KI aus, schätzt das Hautkrebsrisiko in drei Stufen ein und empfiehlt bei Auffälligkeiten den Besuch bei einem Arzt.
 
-### 1.2 Ausgangslage und Zielgruppe
+Die Marktanalyse hat gezeigt, dass es bereits mehrere Apps zur Erkennung von Hautkrebs gibt (siehe Abschnitt 1.4). Aus dem Vergleich ihrer Funktionen haben wir eine grundlegende Entscheidung abgeleitet: Unsere App stellt keine Diagnose, sondern liefert eine Einschätzung und empfiehlt auf dieser Grundlage gegebenenfalls einen Arztbesuch. Für wen die App gedacht ist und welche Anforderungen sich daraus ergeben, beschreibt Kapitel 3.
 
-Im Rahmen unseres Projektes haben wir entschieden, eine Objekterkennungsanwendung zu entwickeln. Dafür haben wir uns vorgenommen, das Thema Hautkrebs zu untersuchen und die Erkennung maligner Hautläsionen in einer Smartphone-Anwendung umzusetzen. Eine genauere Analyse der Hautkrebserkrankungen hat gezeigt, dass ältere Menschen häufiger an dieser Art der Erkrankung leiden. Aus diesem Grund soll die Anwendung vor allem für Menschen dieser Altersgruppe konzipiert werden. Sie soll aber auch allen anderen Menschen, die sich um die Gesundheit ihrer Haut kümmern wollen, im Alltag helfen. Im Rahmen der Marktanalyse wurden mehrere Anwendungen identifiziert, die die Erkennung von Hautkrebs umsetzen. Nach der Analyse ihrer Funktionalitäten haben wir festgestellt, dass unsere App keine Diagnose liefern soll, sondern eine Einschätzung und auf dieser Grundlage gegebenenfalls die Empfehlung, einen Arzt aufzusuchen.
-
-### 1.3 Vision
+### 1.2 Vision
 
 Langfristig soll die App ein digitaler Begleiter für die Hautkrebsvorsorge werden. Nutzer dokumentieren ihre Muttermale regelmäßig, Veränderungen werden automatisch erkannt, und die Ergebnisse lassen sich als Bericht an Hautärzte weitergeben. Über den Kurs hinaus wären eine Anbindung an Teledermatologie-Dienste sowie eine klinische Validierung und Zulassung als Medizinprodukt denkbar.
 
-### 1.4 Nutzungskontext
+### 1.3 Nutzungskontext
 
 Die App wird vor allem im Alltag zu Hause genutzt, etwa bei der regelmäßigen Selbstuntersuchung der Haut alle drei Monate. Zusätzlich kann sie in der Freizeit hilfreich sein, zum Beispiel im Sommer oder im Urlaub bei hoher UV-Belastung. Da die Zielgruppe vor allem ältere Menschen sind, legen wir Wert auf eine einfache Bedienung: große Schaltflächen, eine klare Sprache und eine Schritt-für-Schritt-Anleitung bei der Fotoaufnahme.
 
-### 1.5 Ähnliche Apps und Abgrenzung
+### 1.4 Ähnliche Apps und Abgrenzung
 
 Zu den bekanntesten Anwendungen gehören SkinVision und SkinScreener, die eine KI-basierte Risikoeinschätzung anbieten, sowie Miiskin, das sich auf die Dokumentation von Muttermalen konzentriert. Teledermatologie-Dienste wie Dermanostic und OnlineDoctor verbinden Nutzer dagegen direkt mit Hautärzten. Unsere App unterscheidet sich vor allem durch die Ausrichtung auf ältere Nutzer und durch die Verbindung von Risikoeinschätzung und Verlaufsbeobachtung in einer einfachen Oberfläche. [Weiteres Unterscheidungsmerkmal, z. B. kostenlos, Datenverarbeitung auf dem Gerät oder Arztsuche in der Nähe]
 
