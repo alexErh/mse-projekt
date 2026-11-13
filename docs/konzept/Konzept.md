@@ -129,303 +129,122 @@ Bei der Auswahl der MVP-Funktionen haben wir uns an vier Kriterien orientiert:
 
 Der MVP-Umfang ist im Kurszeitraum von [X Wochen] mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D/3D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
 
-# 5. Anwendungsfälle und Akteure
+## 5. Anwendungsfälle und Akteure
 
-MVP-Umfang: Features 1, 2, 6, 10, 11, 14, 15, 19 aus der [Marktanalyse](Hautkrebs-Erkennungs-Apps%20Marktanalyse%20&%20MVP-Features.md). Die App ist ein Prototyp und kein zugelassenes Medizinprodukt.
+Die Anwendungsfälle verfeinern den in Kapitel 4 beschriebenen MVP-Umfang zu konkreten Abläufen. Aus ihnen leiten sich die Komponenten und der Technologiestack in Kapitel 6 ab.
 
-Diagramm: [use-case-diagramm.puml](use-case-diagramm.puml)
+### 5.1 Akteure
 
-## 5.1 Akteure
+Das MVP kennt einen einzigen Akteur: den Nutzer, eine erwachsene Person, die Hautstellen selbst fotografiert, einschätzen lässt und über die Zeit beobachtet. Weitere Akteure gibt es nicht. Das KI-Modell läuft auf dem Smartphone und ist damit Teil des Systems (Abschnitt 6.3). Auch die Erinnerungen plant und löst die App selbst aus, ohne externen Dienst. Hautärzte sind nicht beteiligt, da die App den Arztbesuch nur empfiehlt (Abschnitt 3.3).
 
-| Akteur | Art | Beschreibung |
-| --- | --- | --- |
-| Nutzer:in | primär | Erwachsene Person, die Hautstellen selbst fotografiert, einschätzen lässt und über die Zeit beobachtet |
-| KI-Dienst | sekundär, nur falls extern | Liefert die Risikoeinstufung zu einem Foto; läuft das Modell on-device, gehört es zum System und entfällt als Akteur |
+### 5.2 Use-Case-Diagramm
 
-## 5.2 Übersicht
+Abbildung [X] zeigt die zwölf Anwendungsfälle des MVP. Sechs davon startet der Nutzer direkt: Er prüft eine Hautstelle (UC-01), legt eine Hautstelle an (UC-08), sieht ihren Verlauf ein (UC-09), stellt eine Erinnerung ein (UC-10), wird an eine Kontrolle erinnert (UC-11) und löscht Hautstellen oder Aufnahmen (UC-12). Die übrigen Anwendungsfälle sind Teilschritte der Prüfung. Eine include-Beziehung kennzeichnet einen Schritt, der bei jeder Prüfung ausgeführt wird, eine extend-Beziehung einen Schritt, der nur unter einer Bedingung hinzukommt.
 
-| ID | Use Case | Akteur | Beziehungen | Feature |
-| --- | --- | --- | --- | --- |
-| UC-01 | Hautstelle prüfen (Hauptanwendungsfall) | Nutzer:in | include: UC-02, UC-03, UC-05, UC-06; extend: UC-07, UC-08 | – |
-| UC-02 | Eignung prüfen | – | Teil von UC-01 | 10 |
-| UC-03 | Foto aufnehmen | – | Teil von UC-01; include: UC-04 | 1 |
-| UC-04 | Bildqualität prüfen | – | Teil von UC-03 | 2 |
-| UC-05 | Risiko einstufen | KI-Dienst (falls extern) | Teil von UC-01 | 6 |
-| UC-06 | Handlungsempfehlung anzeigen | – | Teil von UC-01 | 11 |
-| UC-07 | An Arzt verweisen | – | erweitert UC-01 | 10 |
-| UC-08 | Läsion anlegen und verorten | Nutzer:in | erweitert UC-01, auch direkt nutzbar | 14, 15 |
-| UC-09 | Verlauf einsehen | Nutzer:in | – | 14, 15 |
-| UC-10 | Erinnerung einstellen | Nutzer:in | – | 19 |
-| UC-11 | An Kontrolle erinnert werden | Nutzer:in | – | 19 |
+![Use-Case-Diagramm des MVP](use-case-diagramm.png)
 
-## 5.3 Beschreibungen
+### 5.3 Hauptanwendungsfall: Hautstelle prüfen
 
-Alle Use Cases sind Kategorie MVP und Typ funktional.
+Der zentrale Anwendungsfall UC-01 führt den Nutzer von der Aufnahme einer Hautstelle zu einer Risikoeinstufung und einem klaren nächsten Schritt. Voraussetzung ist, dass der Nutzer der App den Kamerazugriff erlaubt hat. Der Ablauf gliedert sich in sechs Schritte:
 
-### 5.3.1 UC-01 Hautstelle prüfen
+1. Der Nutzer startet die Prüfung für eine neue oder eine bereits angelegte Hautstelle.
+2. Die App prüft, ob der Fall für eine Einstufung geeignet ist (UC-02).
+3. Der Nutzer fotografiert die Hautstelle (UC-03).
+4. Die App stuft das Risiko ein (UC-05).
+5. Die App zeigt die Einstufung zusammen mit einer Handlungsempfehlung an (UC-06).
+6. Die App speichert das Ergebnis bei der Hautstelle. Eine neue Hautstelle legt der Nutzer dabei auf der Körperübersicht an (UC-08).
 
-- **Ziel:** Die Person erhält zu einer Hautstelle eine Risikoeinstufung und einen klaren nächsten Schritt.
-- **Vorbedingung:** App ist installiert, Kamerazugriff ist erlaubt.
-- **Nachbedingung:** Foto und Ergebnis sind einer Läsion zugeordnet und gespeichert.
-- **Hauptablauf:**
-  1. Nutzer:in startet die Prüfung für eine neue oder eine bestehende Läsion.
-  2. System prüft die Eignung (UC-02).
-  3. Nutzer:in nimmt das Foto auf (UC-03).
-  4. System stuft das Risiko ein (UC-05).
-  5. System zeigt Einstufung und Handlungsempfehlung an (UC-06).
-  6. System speichert das Ergebnis bei der bestehenden Läsion oder legt eine neue an (UC-08).
-- **Alternativen:**
-  - 2a. Fall ist ungeeignet: Verweis an Arzt (UC-07), Prüfung endet ohne Einstufung.
-  - 4a. Analyse schlägt fehl: System zeigt keine Einstufung und bietet einen neuen Versuch an.
-- **Akzeptanzkriterien:**
-  - [ ] Eine Einstufung erscheint nur nach bestandener Eignungs- und Qualitätsprüfung.
-  - [ ] Das Ergebnis ist danach im Verlauf der Läsion sichtbar.
+Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist die App an einen Arzt (UC-07) und beendet die Prüfung ohne Einstufung. Schlägt die Analyse fehl, zeigt die App keine Einstufung an und bietet einen neuen Versuch an. Für den gesamten Anwendungsfall gilt damit: Eine Einstufung erscheint nur nach bestandener Eignungs- und Qualitätsprüfung, und jedes Ergebnis ist anschließend im Verlauf der Hautstelle sichtbar.
 
-### 5.3.2 UC-02 Eignung prüfen
+### 5.4 Teilschritte der Prüfung
 
-- **Ziel:** Fälle, für die die Einstufung nicht verantwortbar ist, werden vor der Analyse aussortiert.
-- **Ablauf:** Nutzer:in gibt Alter, Hauttyp und Körperstelle an, das System bewertet die Angaben.
-- **Ungeeignet:** unter 18 Jahre, Hauttyp V–VI, Schleimhaut oder Nägel.
-- **Akzeptanzkriterien:**
-  - [ ] Jeder der vier Ausschlussgründe führt zu UC-07.
+**Eignung prüfen (UC-02).** Bevor ein Foto ausgewertet wird, gibt der Nutzer Alter, Hauttyp und Körperstelle an. Die App sortiert damit Fälle aus, für die eine Einstufung nicht verantwortbar ist: Personen unter 18 Jahren, Hauttyp V–VI sowie Hautstellen an Schleimhaut oder Nägeln. Jeder dieser Gründe führt zum Arztverweis (UC-07), der den konkreten Ausschlussgrund nennt und eine ärztliche Abklärung empfiehlt.
 
-### 5.3.3 UC-03 Foto aufnehmen
+**Foto aufnehmen (UC-03) und Bildqualität prüfen (UC-04).** Ein Overlay in der Kameravorschau führt den Nutzer zu passendem Abstand und Bildausschnitt, die Aufnahme löst er selbst aus. Anschließend prüft die App Schärfe und Belichtung. Unscharfe oder zu dunkle Fotos lehnt sie ab, nennt den Grund und fordert eine neue Aufnahme an. Hat der Nutzer den Kamerazugriff verweigert, erklärt die App, wie er ihn erteilen kann.
 
-- **Ziel:** Ein für die Analyse brauchbares Foto der Hautstelle.
-- **Ablauf:** System führt per Overlay zu Abstand und Ausschnitt, Nutzer:in oder automatischer Auslöser nimmt das Foto auf, danach folgt UC-04.
-- **Alternative:** Kamerazugriff verweigert: System erklärt, wie er erteilt wird.
-- **Akzeptanzkriterien:**
-  - [ ] Overlay ist während der gesamten Aufnahme sichtbar.
+**Risiko einstufen (UC-05) und Handlungsempfehlung anzeigen (UC-06).** Das KI-Modell ordnet das Foto genau einer von drei Stufen zu: niedrig, mittel oder hoch. Jede Stufe ist mit einer Empfehlung verbunden. Bei niedrigem Risiko soll die Hautstelle weiter beobachtet und in drei Monaten erneut geprüft werden, bei mittlerem Risiko zeitnah und bei hohem Risiko dringend ärztlich abgeklärt werden. Zu jeder Stufe weist die App darauf hin, dass das Ergebnis keine Diagnose ist.
 
-### 5.3.4 UC-04 Bildqualität prüfen
+### 5.5 Hautstellen und Verlauf
 
-- **Ziel:** Unbrauchbare Fotos erreichen die Analyse nicht.
-- **Ablauf:** System prüft Schärfe, Licht und Ausschnitt.
-- **Alternative:** Prüfung nicht bestanden: System nennt den Grund und verlangt eine Neuaufnahme.
-- **Akzeptanzkriterien:**
-  - [ ] Unscharfe oder zu dunkle Fotos werden abgelehnt.
+**Hautstelle anlegen und verorten (UC-08).** Jede beobachtete Hautstelle wird auf einer zweidimensionalen Körperübersicht markiert und kann einen Namen erhalten. Die Körperstelle aus der Eignungsprüfung ist dabei vorausgewählt. Der Anwendungsfall erweitert die Prüfung, wenn das Ergebnis zu einer neuen Hautstelle gehört, und lässt sich auch unabhängig davon nutzen.
 
-### 5.3.5 UC-05 Risiko einstufen
+**Verlauf einsehen (UC-09).** Wählt der Nutzer eine Hautstelle auf der Körperübersicht aus, zeigt die App alle Fotos und Einstufungen nach Datum sortiert an. Von hier aus kann er direkt eine Folgeprüfung (UC-01) für diese Hautstelle starten.
 
-- **Ziel:** Das Foto wird einer von drei Stufen zugeordnet: niedrig, mittel oder hoch.
-- **Ablauf:** System übergibt das Foto dem KI-Modell und übernimmt die Stufe.
-- **Akzeptanzkriterien:**
-  - [ ] Das Ergebnis ist immer genau eine der drei Stufen oder ein Fehler.
+**Hautstelle oder Aufnahme löschen (UC-12).** Der Nutzer kann einzelne Aufnahmen oder eine ganze Hautstelle samt Verlauf und Erinnerung löschen. Da gelöschte Fotos nicht wiederhergestellt werden können, fragt die App vorher nach einer Bestätigung. So behält der Nutzer die Kontrolle über seine Bilder (Abschnitt 3.2).
 
-### 5.3.6 UC-06 Handlungsempfehlung anzeigen
+### 5.6 Erinnerungen
 
-- **Ziel:** Die Person weiß, was sie als Nächstes tun soll.
-- **Ablauf je Stufe:**
-  - niedrig: beobachten, Kontrolle in 3 Monaten
-  - mittel: zeitnah ärztlich abklären lassen
-  - hoch: dringend Arzt aufsuchen
-- **Akzeptanzkriterien:**
-  - [ ] Jede Stufe zeigt ihre Empfehlung und den Hinweis, dass das Ergebnis keine Diagnose ist.
+**Erinnerung einstellen (UC-10).** Für jede angelegte Hautstelle wählt der Nutzer ein Kontrollintervall von bis zu sechs Monaten. Er kann das Intervall jederzeit ändern oder die Erinnerung deaktivieren.
 
-### 5.3.7 UC-07 An Arzt verweisen
+**An Kontrolle erinnert werden (UC-11).** Ist der Termin erreicht, zeigt die App eine Benachrichtigung an. Durch Antippen öffnet sich die Folgeprüfung der betreffenden Hautstelle. Hat der Nutzer Benachrichtigungen nicht erlaubt, erscheint die fällige Kontrolle stattdessen in der App.
 
-- **Ziel:** Ungeeignete Fälle bleiben nicht ohne nächsten Schritt.
-- **Bedingung:** Eignungsprüfung nicht bestanden.
-- **Ablauf:** System nennt den Grund und empfiehlt eine ärztliche Abklärung.
-- **Akzeptanzkriterien:**
-  - [ ] Der Verweis nennt den konkreten Ausschlussgrund.
+## 6. Architektur und Technologiestack
 
-### 5.3.8 UC-08 Läsion anlegen und verorten
+Drei Eigenschaften des MVP prägen die Architektur. Die App verarbeitet Hautfotos und damit Gesundheitsdaten im Sinne von Art. 9 DSGVO [1]. Der Hauptanwendungsfall hängt von Kamera und Bildanalyse ab. Und das MVP sieht kein Nutzerkonto vor. Aus der Evaluation in diesem Kapitel ergibt sich daraus eine Grundentscheidung: Die App arbeitet vollständig auf dem Gerät und kommt ohne eigenes Backend aus.
 
-- **Ziel:** Jede beobachtete Stelle ist eindeutig am Körper hinterlegt.
-- **Bedingung bei Erweiterung von UC-01:** Das Ergebnis gehört zu einer neuen Läsion.
-- **Ablauf:** Nutzer:in markiert die Stelle auf der 2D-Bodymap und vergibt optional einen Namen. Die Körperstelle aus UC-02 ist vorbelegt.
-- **Akzeptanzkriterien:**
-  - [ ] Die Läsion erscheint an der markierten Stelle der Bodymap.
+### 6.1 Komponenten
 
-### 5.3.9 UC-09 Verlauf einsehen
+Aus den Anwendungsfällen ergeben sich acht Komponenten. Die Benutzeroberfläche umfasst alle Screens, die Navigation und die Zustandsverwaltung. Die Kameraaufnahme stellt Vorschau, Overlay und Auslöser bereit (UC-03), die Qualitätsprüfung bewertet Schärfe und Belichtung (UC-04). Die Eignungsprüfung gleicht die Angaben des Nutzers mit den Ausschlussregeln ab (UC-02, UC-07). Die KI-Einstufung ordnet ein Foto einer Risikostufe zu und leitet die Empfehlung ab (UC-05, UC-06). Die Datenhaltung speichert und löscht Hautstellen, Ergebnisse und Fotos (UC-01, UC-08, UC-09, UC-12). Über die Körperübersicht verortet und wählt der Nutzer Hautstellen (UC-08, UC-09), und die Erinnerungskomponente plant Termine und löst Benachrichtigungen aus (UC-10, UC-11).
 
-- **Ziel:** Die Person erkennt, wie sich eine Läsion über die Zeit entwickelt.
-- **Vorbedingung:** Mindestens eine Läsion ist angelegt.
-- **Ablauf:** Nutzer:in wählt eine Läsion auf der Bodymap, System zeigt Fotos und Einstufungen chronologisch an.
-- **Alternative:** Von hier startet eine Folgeprüfung (UC-01) für diese Läsion.
-- **Akzeptanzkriterien:**
-  - [ ] Einträge sind nach Datum sortiert und zeigen Foto und Stufe.
+Die App folgt dem Architekturmuster Model-View-ViewModel (MVVM) mit drei Schichten. Die UI-Schicht enthält Screens und ViewModels, die Domänenschicht die Eignungsregeln und die Risikologik, die Datenschicht die Repositories für den Datenzugriff. KI-Modell und Speicher liegen hinter Schnittstellen und bleiben so austauschbar.
 
-### 5.3.10 UC-10 Erinnerung einstellen
+### 6.2 Bewertungskriterien
 
-- **Ziel:** Kontrollen einer Läsion werden nicht vergessen.
-- **Vorbedingung:** Läsion ist angelegt.
-- **Ablauf:** Nutzer:in wählt für die Läsion ein Intervall von bis zu 6 Monaten oder deaktiviert die Erinnerung.
-- **Akzeptanzkriterien:**
-  - [ ] Das Intervall lässt sich ändern und deaktivieren.
+Alle Komponenten werden nach denselben fünf Kriterien bewertet. Beim **Datenschutz** zählt, wie viele Gesundheitsdaten das Gerät verlassen. Die **Offline-Fähigkeit** beschreibt, ob der Anwendungsfall ohne Netzverbindung funktioniert. Der **Aufwand** umfasst Umsetzung und Einarbeitung im Rahmen des Moduls, die **Kosten** laufende Ausgaben für Betrieb und Hosting. Die **Eignung** gibt an, ob eine Lösung den Anwendungsfall vollständig abdeckt. Scheidet eine Option an einem Kriterium eindeutig aus, werden die übrigen nicht weiter betrachtet.
 
-### 5.3.11 UC-11 An Kontrolle erinnert werden
+### 6.3 Evaluation und Entscheidung
 
-- **Ziel:** Die Person wird zum fälligen Zeitpunkt zur Kontrolle aufgefordert.
-- **Auslöser:** Der Termin der Erinnerung ist erreicht.
-- **Ablauf:** System zeigt eine Benachrichtigung, Antippen öffnet die Folgeprüfung (UC-01) der Läsion.
-- **Alternative:** Benachrichtigungen nicht erlaubt: Fällige Kontrolle wird in der App angezeigt.
-- **Akzeptanzkriterien:**
-  - [ ] Die Benachrichtigung erscheint zum eingestellten Termin und führt zur richtigen Läsion.
+**Benutzeroberfläche: Kotlin mit Jetpack Compose.** Plattformübergreifende Frameworks wie Flutter oder Kotlin Multiplatform bringen keinen Vorteil, da das MVP nur Android unterstützt (Abschnitt 3.1). Flutter bindet Kamera und KI zudem nur über Plugins an. Gegenüber klassischen XML-Layouts benötigt das deklarative Compose weniger Boilerplate-Code.
 
-## 5.4 Nicht im MVP
+**Kameraaufnahme: CameraX.** Die System-Kamera per Intent erlaubt kein Overlay und damit keine geführte Aufnahme. Camera2 verursacht hohen Aufwand und gerätespezifische Fehlerquellen. CameraX stellt Vorschau, Aufnahme und Bildanalyse als fertige Bausteine bereit.
 
-| Use Case | Feature |
-| --- | --- |
-| Bericht als PDF exportieren | 13 |
-| Symptome angeben | 8 |
-| Risikoprofil und Hauttyp pflegen | 20 |
-| Läsionsfotos direkt vergleichen | 16 |
-| Ergebnis von Dermatolog:in prüfen lassen | 12 |
-| Fall an Teledermatologie senden | 23 |
-| Registrieren und Einwilligung verwalten | 27 |
+**Qualitätsprüfung: eigene Metriken.** OpenCV vergrößert die App deutlich für wenige genutzte Funktionen, und ein eigenes KI-Modell setzt gelabelte Trainingsdaten voraus. Für das MVP genügt es, nach der Aufnahme die Schärfe über die Varianz des Laplace-gefilterten Bildes und die Belichtung über die mittlere Helligkeit zu messen.
 
-## 5.5 Offene Entscheidungen
+**Eignungsprüfung: Regeln in der Domänenschicht.** Die Ausschlussregeln sind feste Bedingungen, für die weder eine Bibliothek noch ein Dienst nötig ist.
 
-| Frage | Auswirkung auf die Use Cases | Auswirkung auf den Stack |
-| --- | --- | --- |
-| KI on-device oder im Backend/extern? | KI-Dienst ist Akteur oder entfällt; UC-01 braucht ggf. Offline-Fall | LiteRT oder eigener Python-Dienst/externe API |
-| Daten lokal oder in Supabase? | Bei Cloud-Speicherung kommt „Anmelden“ ins MVP (Feature 27) | Room oder Supabase Auth/DB/Storage |
-| Erinnerung lokal oder per Push? | keine | WorkManager/AlarmManager oder FCM |
-| Qualitätsprüfung live oder nach dem Foto? | Auslöser in UC-03 automatisch oder manuell | CameraX-Analyse oder Prüfung des fertigen Bilds |
-| Selbstauskunft je Prüfung oder einmalig? | Ablauf von UC-02 | Speicherung der Angaben |
+**KI-Einstufung: LiteRT auf dem Gerät.** Die Einstufung kann auf dem Gerät, auf einem eigenen Server oder über einen externen Dienst laufen. Tabelle [X] vergleicht die drei Optionen.
 
-
-# 6. Architektur und Technologiestack (Draft)
-
-> **Status:** Entwurf für das Team. Die Datenhaltung (Abschnitt 3.6) steht unter dem Vorbehalt, ob das Modul ein Backend verlangt. Die Alternative ist in Abschnitt 5 ausgearbeitet.
-
-Die Architektur leitet sich aus den [Anwendungsfällen](UseCases.md) ab. Prägend sind drei Eigenschaften des MVP:
-
-- Die App verarbeitet Hautfotos, also Gesundheitsdaten nach Art. 9 DSGVO.
-- Der Hauptanwendungsfall hängt von Kamera und Bildanalyse ab.
-- Das MVP sieht kein Nutzerkonto vor.
-
-## 6.1 Komponenten
-
-| Komponente | Aufgabe | Use Cases |
-| --- | --- | --- |
-| App und Benutzeroberfläche | Screens, Navigation, Zustandsverwaltung | alle |
-| Kameraaufnahme | Vorschau, Overlay, Auslöser | UC-03 |
-| Qualitätsprüfung | Schärfe, Licht und Ausschnitt bewerten | UC-04 |
-| Eignungsprüfung | Selbstauskunft gegen Ausschlussregeln prüfen | UC-02, UC-07 |
-| KI-Einstufung | Foto einer von drei Risikostufen zuordnen, Empfehlung ableiten | UC-05, UC-06 |
-| Datenhaltung | Läsionen, Ergebnisse und Fotos speichern | UC-01, UC-08, UC-09 |
-| Bodymap | Läsionen am Körper verorten und auswählen | UC-08, UC-09 |
-| Erinnerungen | Termine planen und Benachrichtigungen auslösen | UC-10, UC-11 |
-
-Die App folgt dem MVVM-Muster mit drei Schichten: Die UI-Schicht enthält Screens und ViewModels, die Domänenschicht Eignungsregeln und Risikologik, die Datenschicht Repositories. KI-Modell und Speicher liegen hinter Schnittstellen, damit sie austauschbar bleiben.
-
-## 6.2 Bewertungskriterien
-
-| Kriterium | Bedeutung |
-| --- | --- |
-| Datenschutz | Wie viele Gesundheitsdaten verlassen das Gerät? |
-| Offline-Fähigkeit | Funktioniert der Anwendungsfall ohne Netz? |
-| Aufwand | Umsetzbar im Rahmen des Moduls, inklusive Einarbeitung |
-| Kosten | Laufende Kosten für Betrieb und Hosting |
-| Eignung | Deckt die Lösung den Anwendungsfall vollständig ab? |
-
-## 6.3 Evaluation und Entscheidung
-
-### 6.3.1 App und Benutzeroberfläche
-
-| Option | Bewertung |
-| --- | --- |
-| Kotlin + Jetpack Compose | Nativer, direkter Zugriff auf CameraX und LiteRT; aktueller Android-Standard; deklarative UI |
-| Kotlin + XML-Views | Gleiche Plattformzugriffe, aber mehr Boilerplate und kein Vorteil für ein neues Projekt |
-| Flutter | Plattformübergreifend, aber Kamera und KI laufen über Plugins; zusätzliche Sprache |
-| Kotlin Multiplatform | Teilt Logik mit iOS, was das rein auf Android ausgerichtete MVP nicht braucht |
-
-**Entscheidung: Kotlin mit Jetpack Compose.** Plattformübergreifende Ansätze bringen ohne iOS-Ziel keinen Nutzen, während der Hauptanwendungsfall von einem direkten Zugriff auf Kamera und KI profitiert.
-
-### 6.3.2 Kameraaufnahme
-
-| Option | Bewertung |
-| --- | --- |
-| CameraX | Vorschau, Aufnahme und Bildanalyse als fertige Anwendungsfälle; Overlay möglich |
-| Camera2 | Volle Kontrolle, aber hoher Aufwand und gerätespezifische Fehlerquellen |
-| System-Kamera per Intent | Minimaler Aufwand, aber keine geführte Aufnahme und damit kein UC-03 |
-
-**Entscheidung: CameraX.** Die geführte Aufnahme schließt den System-Intent aus, und die Kontrolle von Camera2 wird nicht benötigt.
-
-### 6.3.3 Qualitätsprüfung
-
-| Option | Bewertung |
-| --- | --- |
-| Eigene Metriken | Schärfe über Laplace-Varianz, Licht über Helligkeit; schlank und erklärbar |
-| OpenCV | Mächtig, vergrößert aber die App deutlich für wenige benötigte Funktionen |
-| Eigenes KI-Modell | Könnte auch Haare und Ausschnitt erkennen, braucht aber gelabelte Daten |
-
-**Entscheidung: eigene Metriken, ausgeführt nach der Aufnahme.** Die Prüfung läuft unabhängig von der Datenhaltung immer auf dem Gerät. Eine Live-Prüfung über die CameraX-Bildanalyse ist eine spätere Erweiterung.
-
-### 6.3.4 Eignungsprüfung
-
-Die Ausschlussregeln (Alter, Hauttyp, Körperstelle) sind feste Bedingungen und werden als Kotlin-Regeln in der Domänenschicht umgesetzt. Da keine weitere Lösung sinnvoll infrage kommt, entfällt eine Evaluation.
-
-### 6.3.5 KI-Einstufung
-
-| Kriterium | LiteRT on-device | Eigener Python-Dienst (FastAPI + ONNX) | Externe API |
+| Kriterium | LiteRT auf dem Gerät | Eigener Server (z. B. FastAPI mit ONNX Runtime) | Externer Dienst |
 | --- | --- | --- | --- |
 | Datenschutz | Fotos bleiben auf dem Gerät | Fotos gehen an den eigenen Server | Fotos gehen an Dritte |
 | Offline-Fähigkeit | ja | nein | nein |
-| Aufwand | Modell konvertieren und einbinden | zusätzlich Dienst und Hosting betreiben | gering, aber kein passender, frei nutzbarer Dienst bekannt |
+| Aufwand | Modell konvertieren und einbinden | zusätzlich Dienst und Hosting betreiben | gering, aber uns ist kein passender, frei nutzbarer Dienst bekannt |
 | Kosten | keine | Hosting | nutzungsabhängig |
-| Eignung | begrenzt auf kompakte Modelle | auch große Modelle möglich | vom Anbieter abhängig |
+| Eignung | nur kompakte Modelle | auch große Modelle | vom Anbieter abhängig |
 
-Supabase Edge Functions scheiden für die Inferenz aus: Sie sind auf 256 MB Speicher, 2 s CPU-Zeit pro Anfrage und 20 MB Paketgröße begrenzt [1].
+Ausschlaggebend sind Datenschutz und Offline-Fähigkeit: Die Fotos verlassen das Smartphone nicht, und es entsteht kein Server, der betrieben werden muss. Backend-as-a-Service-Plattformen scheiden für die Inferenz ohnehin aus; Supabase begrenzt seine Edge Functions etwa auf 256 MB Arbeitsspeicher und 2 s CPU-Zeit pro Anfrage [2]. LiteRT ist die Laufzeitumgebung, die Google bis 2024 als TensorFlow Lite entwickelt hat [3]. Ein vortrainiertes, für Mobilgeräte entworfenes Modell wie MobileNet [4] wird auf HAM10000 [5] oder dem ISIC-Archiv nachtrainiert (Abschnitt 4.5). Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe. Zwei Einschränkungen nehmen wir bewusst in Kauf: HAM10000 besteht aus dermatoskopischen Aufnahmen und nicht aus Smartphone-Fotos [5], und dunkle Hauttypen sind in öffentlichen Datensätzen stark unterrepräsentiert [6]. Letzteres stützt den Ausschluss von Hauttyp V–VI in der Eignungsprüfung.
 
-**Entscheidung: LiteRT on-device.** Das Modell (z. B. MobileNet oder EfficientNet-Lite) wird extern auf einem öffentlichen Datensatz wie HAM10000 [2] oder ISIC trainiert, nach LiteRT konvertiert und mit der App ausgeliefert. Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe.
+**Datenhaltung: Room und privater App-Speicher.** Supabase würde Synchronisation und Gerätewechsel ermöglichen, erfordert dafür aber Login, Zugriffsregeln und die Speicherung von Gesundheitsdaten auf einem Server, und das für Funktionen außerhalb des MVP. Die App speichert daher alles lokal: strukturierte Daten in einer SQLite-Datenbank über die Jetpack-Bibliothek Room, Fotos als Dateien im privaten App-Speicher. Beides wird von der Android-Datensicherung ausgeschlossen, damit keine Gesundheitsdaten ungewollt in die Cloud gelangen.
 
-Einschränkung: Solche Datensätze zeigen überwiegend helle Haut. Das stützt den Ausschluss von Hauttyp V–VI in UC-02. Das Modell ist nicht klinisch validiert, die App bleibt ein Prototyp.
+**Körperübersicht: Compose Canvas.** Eine 3D-Bibliothek geht über den MVP-Umfang hinaus, und eine SVG-Grafik in einer WebView erfordert eine Brücke zwischen Web- und App-Code. Auf dem Canvas lassen sich Vorder- und Rückseite eines Körperumrisses ohne zusätzliche Abhängigkeit zeichnen. Als Rückfallebene dient eine Auswahlliste der Körperregionen (Abschnitt 4.5).
 
-### 6.3.6 Datenhaltung
+**Erinnerungen: WorkManager.** Push-Nachrichten über Firebase Cloud Messaging setzen einen Server voraus. AlarmManager löst minutengenau aus, benötigt dafür ab Android 12 aber eine widerrufbare Sonderberechtigung, die bei Intervallen von Wochen bis Monaten unnötig ist. WorkManager plant Aufgaben auch nach einem Neustart des Geräts erneut ein.
 
-| Kriterium | Room + App-Speicher | Supabase (Postgres + Storage) |
+### 6.4 Gewählter Stack
+
+Tabelle [X] fasst die Entscheidungen zusammen.
+
+| Komponente | Anwendungsfälle | Technologie |
 | --- | --- | --- |
-| Datenschutz | Daten bleiben auf dem Gerät | Gesundheitsdaten auf einem Server, Auftragsverarbeitung und Löschkonzept nötig |
-| Offline-Fähigkeit | ja | nur mit zusätzlichem lokalem Cache |
-| Aufwand | gering, keine Authentifizierung | Login, Zugriffsregeln (Row Level Security), Synchronisation |
-| Kosten | keine | kostenloser Tarif für den Prototyp, danach nutzungsabhängig |
-| Eignung | deckt alle MVP-Use-Cases ab | zusätzlich Gerätewechsel und Sync, die nicht im MVP sind |
+| Benutzeroberfläche | alle | Kotlin, Jetpack Compose, MVVM |
+| Kameraaufnahme | UC-03 | CameraX |
+| Qualitätsprüfung | UC-04 | eigene Metriken |
+| Eignungsprüfung | UC-02, UC-07 | Regeln in der Domänenschicht |
+| KI-Einstufung | UC-05, UC-06 | LiteRT, nachtrainiertes Modell |
+| Datenhaltung | UC-01, UC-08, UC-09, UC-12 | Room, privater App-Speicher |
+| Körperübersicht | UC-08, UC-09 | Compose Canvas |
+| Erinnerungen | UC-10, UC-11 | WorkManager |
 
-**Entscheidung (vorläufig): Room für strukturierte Daten, Fotos als Dateien im privaten App-Speicher.** Die Fotos und die Datenbank werden vom Android-Backup ausgeschlossen, damit keine Gesundheitsdaten ungewollt in die Cloud gelangen.
-
-### 6.3.7 Bodymap
-
-| Option | Bewertung |
-| --- | --- |
-| Compose Canvas | 2D-Körperumriss mit Vorder- und Rückseite, Treffererkennung selbst umgesetzt; keine Abhängigkeit |
-| WebView mit SVG | Einfache Grafik, aber zusätzliche Brücke zwischen Web und App |
-| 3D-Bibliothek | Über den MVP-Umfang hinaus |
-
-**Entscheidung: Compose Canvas.** Die Lösung fügt sich ohne zusätzliche Abhängigkeit in die UI ein.
-
-### 6.3.8 Erinnerungen
-
-| Option | Bewertung |
-| --- | --- |
-| WorkManager | Bleibt über Neustarts bestehen, ideal für Intervalle von Wochen bis Monaten |
-| AlarmManager | Exakte Zeitpunkte, die hier nicht nötig sind; zusätzliche Berechtigung |
-| Firebase Cloud Messaging | Braucht einen Server, der die Termine kennt |
-
-**Entscheidung: WorkManager.** Termine werden lokal geplant, und der Zeitpunkt muss nicht minutengenau sein.
-
-## 6.4 Gewählter Stack
-
-| Komponente | Technologie |
-| --- | --- |
-| App und Benutzeroberfläche | Kotlin, Jetpack Compose, MVVM |
-| Kameraaufnahme | CameraX |
-| Qualitätsprüfung | eigene Metriken |
-| Eignungsprüfung | Kotlin-Regeln |
-| KI-Einstufung | LiteRT, extern trainiertes Modell |
-| Datenhaltung | Room, privater App-Speicher |
-| Bodymap | Compose Canvas |
-| Erinnerungen | WorkManager |
-
-## 6.5 Alternative mit Backend
-
-Verlangt das Modul ein Backend, bleibt die KI-Einstufung auf dem Gerät. Die Datenhaltung wechselt dann zu Supabase mit Auth, Postgres und Storage in einer EU-Region. Die Use Cases erweitern sich um „Anmelden“ (Feature 27), und Datenschutz (Feature 28) wird Teil des MVP. Room bleibt als lokaler Cache sinnvoll, damit der Verlauf offline lesbar ist.
+Die optionalen Anwendungsfälle aus Abschnitt 4.2 ändern an dieser Architektur nichts Grundlegendes. Die Arztsuche kann eine installierte Karten-App über einen Intent öffnen, und die UV-Warnung benötigt nur den Abruf eines öffentlichen UV-Index-Dienstes. Ein eigenes Backend ist für keinen der beiden nötig.
 
 ## Quellen
 
-- [1] Supabase: Edge Functions Limits, https://supabase.com/docs/guides/functions/limits; Bundle-Größe: https://supabase.com/docs/guides/troubleshooting/edge-function-fails-deploy
-- [2] Tschandl, P., Rosendahl, C., Kittler, H. (2018): The HAM10000 dataset. Scientific Data 5, 180161.
+Online-Quellen abgerufen am 13.11.2026.
+
+- [1] Verordnung (EU) 2016/679 (Datenschutz-Grundverordnung), Art. 9.
+- [2] Supabase: Edge Functions Limits. https://supabase.com/docs/guides/functions/limits; zur Paketgröße: https://supabase.com/docs/guides/troubleshooting/edge-function-fails-deploy
+- [3] Google Developers Blog (2024): TensorFlow Lite is now LiteRT. https://developers.googleblog.com/en/tensorflow-lite-is-now-litert/
+- [4] Howard, A. G. et al. (2017): MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications. arXiv:1704.04861.
+- [5] Tschandl, P., Rosendahl, C., Kittler, H. (2018): The HAM10000 dataset, a large collection of multi-source dermatoscopic images of common pigmented skin lesions. Scientific Data 5, 180161. doi:10.1038/sdata.2018.161
+- [6] Wen, D. et al. (2022): Characteristics of publicly available skin cancer image datasets: a systematic review. The Lancet Digital Health 4(1), e64–e74. doi:10.1016/S2589-7500(21)00252-1
 
