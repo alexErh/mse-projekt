@@ -92,7 +92,7 @@ Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum 
 | F3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC-05 |
 | F4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC-02, UC-07 |
 | F5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC-06 |
-| F6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie | SkinVision, Miiskin, MoleScope | UC-08, UC-09 |
+| F6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie, Aufnahmen und Hautstellen lassen sich löschen | SkinVision, Miiskin, MoleScope | UC-08, UC-09, UC-12 |
 | F7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
 | F8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
 
@@ -235,7 +235,7 @@ Tabelle [X] fasst die Entscheidungen zusammen.
 | Körperübersicht | UC-08, UC-09 | Compose Canvas |
 | Erinnerungen | UC-10, UC-11 | WorkManager |
 
-Die optionalen Anwendungsfälle aus Abschnitt 4.2 ändern an dieser Architektur nichts Grundlegendes. Die Arztsuche kann eine installierte Karten-App über einen Intent öffnen, und die UV-Warnung benötigt nur den Abruf eines öffentlichen UV-Index-Dienstes. Ein eigenes Backend ist für keinen der beiden nötig.
+Die optionalen Funktionalitäten F9 und F10 aus Abschnitt 4.3 ändern an dieser Architektur nichts Grundlegendes. Die Arztsuche kann eine installierte Karten-App über einen Intent öffnen, und die UV-Warnung benötigt nur den Abruf eines öffentlichen UV-Index-Dienstes. Ein eigenes Backend ist für keinen der beiden nötig.
 
 ## Quellen
 
