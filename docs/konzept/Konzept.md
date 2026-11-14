@@ -135,7 +135,7 @@ Die Anwendungsfälle verfeinern den in Kapitel 4 beschriebenen MVP-Umfang zu kon
 
 ### 5.1 Akteure
 
-Das MVP kennt einen einzigen Akteur: den Nutzer, eine erwachsene Person, die Hautstellen selbst fotografiert, einschätzen lässt und über die Zeit beobachtet. Weitere Akteure gibt es nicht. Das KI-Modell läuft auf dem Smartphone und ist damit Teil des Systems (Abschnitt 6.3). Auch die Erinnerungen plant und löst die App selbst aus, ohne externen Dienst. Hautärzte sind nicht beteiligt, da die App den Arztbesuch nur empfiehlt (Abschnitt 3.3).
+Das MVP kennt einen einzigen Akteur: den Nutzer, eine erwachsene Person, die Hautstellen selbst fotografiert, einschätzen lässt und über die Zeit beobachtet. Das KI-Modell läuft auf dem Smartphone und ist damit Teil des Systems (Abschnitt 6.3). Auch die Erinnerungen plant und löst die App selbst aus, ohne externen Dienst. Hautärzte sind nicht beteiligt, da die App den Arztbesuch nur empfiehlt (Abschnitt 3.3).
 
 ### 5.2 Use-Case-Diagramm
 
@@ -154,15 +154,15 @@ Der zentrale Anwendungsfall UC-01 führt den Nutzer von der Aufnahme einer Hauts
 5. Die App zeigt die Einstufung zusammen mit einer Handlungsempfehlung an (UC-06).
 6. Die App speichert das Ergebnis bei der Hautstelle. Eine neue Hautstelle legt der Nutzer dabei auf der Körperübersicht an (UC-08).
 
-Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist die App an einen Arzt (UC-07) und beendet die Prüfung ohne Einstufung. Schlägt die Analyse fehl, zeigt die App keine Einstufung an und bietet einen neuen Versuch an. Für den gesamten Anwendungsfall gilt damit: Eine Einstufung erscheint nur nach bestandener Eignungs- und Qualitätsprüfung, und jedes Ergebnis ist anschließend im Verlauf der Hautstelle sichtbar.
+Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist die App an einen Arzt (UC-07) und beendet die Prüfung ohne Einstufung. Schlägt die Analyse fehl, zeigt die App keine Einstufung an und bietet einen neuen Versuch an. Eine Einstufung erscheint also nur nach bestandener Eignungs- und Qualitätsprüfung, und jedes Ergebnis ist anschließend im Verlauf der Hautstelle sichtbar.
 
 ### 5.4 Teilschritte der Prüfung
 
-**Eignung prüfen (UC-02).** Bevor ein Foto ausgewertet wird, gibt der Nutzer Alter, Hauttyp und Körperstelle an. Die App sortiert damit Fälle aus, für die eine Einstufung nicht verantwortbar ist: Personen unter 18 Jahren, Hauttyp V–VI sowie Hautstellen an Schleimhaut oder Nägeln. Jeder dieser Gründe führt zum Arztverweis (UC-07), der den konkreten Ausschlussgrund nennt und eine ärztliche Abklärung empfiehlt.
+**Eignung prüfen (UC-02).** Bevor ein Foto ausgewertet wird, gibt der Nutzer Alter, Hauttyp und Körperstelle an. Die App sortiert damit Fälle aus, für die eine Einstufung nicht verantwortbar ist: Personen unter 18 Jahren, dunklere Hauttypen sowie Stellen an Schleimhäuten (etwa im Mund) oder an Nägeln. Jeder dieser Gründe führt zum Arztverweis (UC-07), der den konkreten Ausschlussgrund nennt und eine ärztliche Abklärung empfiehlt.
 
 **Foto aufnehmen (UC-03) und Bildqualität prüfen (UC-04).** Ein Overlay in der Kameravorschau führt den Nutzer zu passendem Abstand und Bildausschnitt, die Aufnahme löst er selbst aus. Anschließend prüft die App Schärfe und Belichtung. Unscharfe oder zu dunkle Fotos lehnt sie ab, nennt den Grund und fordert eine neue Aufnahme an. Hat der Nutzer den Kamerazugriff verweigert, erklärt die App, wie er ihn erteilen kann.
 
-**Risiko einstufen (UC-05) und Handlungsempfehlung anzeigen (UC-06).** Das KI-Modell ordnet das Foto genau einer von drei Stufen zu: niedrig, mittel oder hoch. Jede Stufe ist mit einer Empfehlung verbunden. Bei niedrigem Risiko soll die Hautstelle weiter beobachtet und in drei Monaten erneut geprüft werden, bei mittlerem Risiko zeitnah und bei hohem Risiko dringend ärztlich abgeklärt werden. Zu jeder Stufe weist die App darauf hin, dass das Ergebnis keine Diagnose ist.
+**Risiko einstufen (UC-05) und Handlungsempfehlung anzeigen (UC-06).** Das KI-Modell ordnet das Foto einer von drei Stufen zu: niedrig, mittel oder hoch. Jede Stufe hat eine feste Empfehlung. Bei niedrigem Risiko beobachtet der Nutzer die Hautstelle weiter und prüft sie in drei Monaten erneut, bei mittlerem Risiko soll er sie zeitnah und bei hohem Risiko dringend beim Arzt anschauen lassen. Bei jeder Stufe weist die App darauf hin, dass das Ergebnis keine Diagnose ist.
 
 ### 5.5 Hautstellen und Verlauf
 
@@ -170,7 +170,7 @@ Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist
 
 **Verlauf einsehen (UC-09).** Wählt der Nutzer eine Hautstelle auf der Körperübersicht aus, zeigt die App alle Fotos und Einstufungen nach Datum sortiert an. Von hier aus kann er direkt eine Folgeprüfung (UC-01) für diese Hautstelle starten.
 
-**Hautstelle oder Aufnahme löschen (UC-12).** Der Nutzer kann einzelne Aufnahmen oder eine ganze Hautstelle samt Verlauf und Erinnerung löschen. Da gelöschte Fotos nicht wiederhergestellt werden können, fragt die App vorher nach einer Bestätigung. So behält der Nutzer die Kontrolle über seine Bilder (Abschnitt 3.2).
+**Hautstelle oder Aufnahme löschen (UC-12).** Der Nutzer kann einzelne Aufnahmen oder eine ganze Hautstelle samt Verlauf und Erinnerung löschen. Da gelöschte Fotos nicht wiederhergestellt werden können, fragt die App vorher nach einer Bestätigung. Der Nutzer behält so die Kontrolle über seine Bilder (Abschnitt 3.2).
 
 ### 5.6 Erinnerungen
 
@@ -212,7 +212,7 @@ Alle Komponenten werden nach denselben fünf Kriterien bewertet. Beim **Datensch
 | Kosten | keine | Hosting | nutzungsabhängig |
 | Eignung | nur kompakte Modelle | auch große Modelle | vom Anbieter abhängig |
 
-Ausschlaggebend sind Datenschutz und Offline-Fähigkeit: Die Fotos verlassen das Smartphone nicht, und es entsteht kein Server, der betrieben werden muss. Backend-as-a-Service-Plattformen scheiden für die Inferenz ohnehin aus; Supabase begrenzt seine Edge Functions etwa auf 256 MB Arbeitsspeicher und 2 s CPU-Zeit pro Anfrage [2]. LiteRT ist die Laufzeitumgebung, die Google bis 2024 als TensorFlow Lite entwickelt hat [3]. Ein vortrainiertes, für Mobilgeräte entworfenes Modell wie MobileNet [4] wird auf HAM10000 [5] oder dem ISIC-Archiv nachtrainiert (Abschnitt 4.5). Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe. Zwei Einschränkungen nehmen wir bewusst in Kauf: HAM10000 besteht aus dermatoskopischen Aufnahmen und nicht aus Smartphone-Fotos [5], und dunkle Hauttypen sind in öffentlichen Datensätzen stark unterrepräsentiert [6]. Letzteres stützt den Ausschluss von Hauttyp V–VI in der Eignungsprüfung.
+Ausschlaggebend sind Datenschutz und Offline-Fähigkeit: Die Fotos verlassen das Smartphone nicht, und es entsteht kein Server, der betrieben werden muss. Backend-as-a-Service-Plattformen scheiden für die Inferenz ohnehin aus; Supabase begrenzt seine Edge Functions etwa auf 256 MB Arbeitsspeicher und 2 s CPU-Zeit pro Anfrage [2]. LiteRT ist die Laufzeitumgebung, die Google bis 2024 als TensorFlow Lite entwickelt hat [3]. Ein vortrainiertes, für Mobilgeräte entworfenes Modell wie MobileNet [4] wird auf HAM10000 [5] oder dem ISIC-Archiv nachtrainiert (Abschnitt 4.5). Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe. Zwei Einschränkungen nehmen wir bewusst in Kauf: HAM10000 enthält Nahaufnahmen, die mit einem Spezialgerät beim Hautarzt entstanden sind, keine Smartphone-Fotos [5], und dunkle Hauttypen kommen in öffentlichen Datensätzen kaum vor [6]. Das stützt den Ausschluss dunklerer Hauttypen in der Eignungsprüfung.
 
 **Datenhaltung: Room und privater App-Speicher.** Supabase würde Synchronisation und Gerätewechsel ermöglichen, erfordert dafür aber Login, Zugriffsregeln und die Speicherung von Gesundheitsdaten auf einem Server, und das für Funktionen außerhalb des MVP. Die App speichert daher alles lokal: strukturierte Daten in einer SQLite-Datenbank über die Jetpack-Bibliothek Room, Fotos als Dateien im privaten App-Speicher. Beides wird von der Android-Datensicherung ausgeschlossen, damit keine Gesundheitsdaten ungewollt in die Cloud gelangen.
 
