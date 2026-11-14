@@ -1,22 +1,20 @@
 ## 1. Projektbeschreibung und Kontext
 
-### 1.1 In einem Satz
+### 1.1 Einleitung
 
-[App-Name] ist eine Smartphone-App, die Fotos von Hautveränderungen mit KI auswertet, das Hautkrebsrisiko in drei Stufen einschätzt und bei Auffälligkeiten den Besuch bei einem Arzt empfiehlt.
+Im Rahmen unseres Projekts entwickeln wir eine Smartphone-Anwendung zur Objekterkennung. Als Anwendungsfeld haben wir die Hautkrebsvorsorge gewählt, konkret die Erkennung maligner Hautläsionen auf Fotos. [App-Name] wertet Aufnahmen von Hautveränderungen mit KI aus, schätzt das Hautkrebsrisiko in drei Stufen ein und empfiehlt bei Auffälligkeiten den Besuch bei einem Arzt.
 
-### 1.2 Ausgangslage und Zielgruppe
+Die Marktanalyse hat gezeigt, dass es bereits mehrere Apps zur Erkennung von Hautkrebs gibt (siehe Abschnitt 1.4). Aus dem Vergleich ihrer Funktionen haben wir eine grundlegende Entscheidung abgeleitet: Unsere App stellt keine Diagnose, sondern liefert eine Einschätzung und empfiehlt auf dieser Grundlage gegebenenfalls einen Arztbesuch. Für wen die App gedacht ist und welche Anforderungen sich daraus ergeben, beschreibt Kapitel 3.
 
-Im Rahmen unseres Projektes haben wir entschieden, eine Objekterkennungsanwendung zu entwickeln. Dafür haben wir uns vorgenommen, das Thema Hautkrebs zu untersuchen und die Erkennung maligner Hautläsionen in einer Smartphone-Anwendung umzusetzen. Eine genauere Analyse der Hautkrebserkrankungen hat gezeigt, dass ältere Menschen häufiger an dieser Art der Erkrankung leiden. Aus diesem Grund soll die Anwendung vor allem für Menschen dieser Altersgruppe konzipiert werden. Sie soll aber auch allen anderen Menschen, die sich um die Gesundheit ihrer Haut kümmern wollen, im Alltag helfen. Im Rahmen der Marktanalyse wurden mehrere Anwendungen identifiziert, die die Erkennung von Hautkrebs umsetzen. Nach der Analyse ihrer Funktionalitäten haben wir festgestellt, dass unsere App keine Diagnose liefern soll, sondern eine Einschätzung und auf dieser Grundlage gegebenenfalls die Empfehlung, einen Arzt aufzusuchen.
-
-### 1.3 Vision
+### 1.2 Vision
 
 Langfristig soll die App ein digitaler Begleiter für die Hautkrebsvorsorge werden. Nutzer dokumentieren ihre Muttermale regelmäßig, Veränderungen werden automatisch erkannt, und die Ergebnisse lassen sich als Bericht an Hautärzte weitergeben. Über den Kurs hinaus wären eine Anbindung an Teledermatologie-Dienste sowie eine klinische Validierung und Zulassung als Medizinprodukt denkbar.
 
-### 1.4 Nutzungskontext
+### 1.3 Nutzungskontext
 
 Die App wird vor allem im Alltag zu Hause genutzt, etwa bei der regelmäßigen Selbstuntersuchung der Haut alle drei Monate. Zusätzlich kann sie in der Freizeit hilfreich sein, zum Beispiel im Sommer oder im Urlaub bei hoher UV-Belastung. Da die Zielgruppe vor allem ältere Menschen sind, legen wir Wert auf eine einfache Bedienung: große Schaltflächen, eine klare Sprache und eine Schritt-für-Schritt-Anleitung bei der Fotoaufnahme.
 
-### 1.5 Ähnliche Apps und Abgrenzung
+### 1.4 Ähnliche Apps und Abgrenzung
 
 Zu den bekanntesten Anwendungen gehören SkinVision und SkinScreener, die eine KI-basierte Risikoeinschätzung anbieten, sowie Miiskin, das sich auf die Dokumentation von Muttermalen konzentriert. Teledermatologie-Dienste wie Dermanostic und OnlineDoctor verbinden Nutzer dagegen direkt mit Hautärzten. Unsere App unterscheidet sich vor allem durch die Ausrichtung auf ältere Nutzer und durch die Verbindung von Risikoeinschätzung und Verlaufsbeobachtung in einer einfachen Oberfläche. [Weiteres Unterscheidungsmerkmal, z. B. kostenlos, Datenverarbeitung auf dem Gerät oder Arztsuche in der Nähe]
 
@@ -83,38 +81,40 @@ Für die KI-Auswertung sieht der Architekturentwurf zusätzliche Einschränkunge
 
 Die kleinste nützliche Version der App ermöglicht es, eine Hautstelle zu fotografieren, eine Risikoeinschätzung zu erhalten und daraus eine klare Handlungsempfehlung abzuleiten. Schon damit erfüllt die App ihren Kernzweck: Nutzer erkennen, ob eine Hautveränderung ärztlich abgeklärt werden sollte.
 
-### 4.2 Anwendungsfälle
+### 4.2 MVP-Funktionalitäten
 
-| # | Anwendungsfall | Kategorie |
-|---|---|---|
-| UC1 | Hautstelle mit geführter Kamera fotografieren | MVP |
-| UC2 | Risikoeinschätzung mit Handlungsempfehlung erhalten | MVP |
-| UC3 | Verlauf einer Hautstelle ansehen | MVP |
-| UC4 | Erinnerung an die nächste Kontrolle erhalten | MVP |
-| UC5 | Hautarzt in der Nähe über Google Maps finden | Nicht MVP |
-| UC6 | Warnung bei hohem UV-Index erhalten | Nicht MVP |
+Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum Viable Product (MVP) ausgewählt. Die zugehörigen Anwendungsfälle sind in Kapitel 5 beschrieben.
 
-Verbindlich im Kurs setzen wir die Anwendungsfälle UC1 bis UC4 um. UC5 und UC6 gehören zur langfristigen Vision und werden nur umgesetzt, wenn Zeit bleibt.
-
-### 4.3 MVP-Funktionalitäten
-
-Im Laufe der Marktanalyse wurden weitere Funktionalitäten identifiziert, die zu unserem Minimum Viable Product (MVP) gehören sollen. Sie bilden die technischen Bausteine der Anwendungsfälle UC1 bis UC4:
-
-| # | Bereich | Feature | Beschreibung | Gesehen bei | Anwendungsfall |
+| ID | Bereich | Feature | Beschreibung | Gesehen bei | Use Case |
 |---|---|---|---|---|---|
-| 1 | Bildaufnahme | Geführte Kameraaufnahme | Overlay, Abstand, Fokus, automatischer Auslöser | SkinVision, SkinScreener, DERM Zero | UC1 |
-| 2 | Bildaufnahme | Bildqualitätsprüfung | Unschärfe, Licht, Haare und Ausschnitt erkennen und eine Neuaufnahme verlangen | SkinVision, DermEngine | UC1 |
-| 3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC2 |
-| 4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC2 |
-| 5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC2 |
-| 6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie | SkinVision, Miiskin, MoleScope | UC3 |
-| 7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC3 |
-| 8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC4 |
+| F1 | Bildaufnahme | Geführte Kameraaufnahme | Overlay, Abstand, Fokus, automatischer Auslöser | SkinVision, SkinScreener, DERM Zero | UC-03 |
+| F2 | Bildaufnahme | Bildqualitätsprüfung | Unschärfe, Licht, Haare und Ausschnitt erkennen und eine Neuaufnahme verlangen | SkinVision, DermEngine | UC-04 |
+| F3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC-05 |
+| F4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC-02, UC-07 |
+| F5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC-06 |
+| F6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie, Aufnahmen und Hautstellen lassen sich löschen | SkinVision, Miiskin, MoleScope | UC-08, UC-09, UC-12 |
+| F7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
+| F8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
 
-Zusätzliche Funktionalitäten, die eventuell implementiert werden, sind:
+**Geführte Kameraaufnahme (F1):** Die App unterstützt beim Fotografieren, statt nur die Kamera zu öffnen. Ein Overlay im Kamerabild zeigt, wo die Hautstelle liegen soll, und Hinweise wie „näher heran“ oder „mehr Licht“ helfen, Abstand, Fokus und Belichtung richtig einzustellen. Sobald die Bedingungen passen, kann die App das Foto automatisch auslösen. So entstehen gleichmäßige Aufnahmen, die sich für die KI-Analyse und den späteren Vergleich im Verlauf eignen.
 
-- UV-Index-Warnung (UC6)
-- Arztsuche über Google Maps (UC5)
+Der Hauptanwendungsfall UC-01 *Hautstelle prüfen* verbindet die Features F1 bis F5 zu einem Ablauf.
+
+### 4.3 Nicht-MVP-Funktionalitäten
+
+Die folgenden Funktionalitäten gehören zur langfristigen Vision und werden im Kurs nur umgesetzt, wenn Zeit bleibt:
+
+| ID | Feature | Beschreibung |
+|---|---|---|
+| F9 | Arztsuche | Hautarzt in der Nähe über Google Maps finden |
+| F10 | UV-Index-Warnung | Warnung bei hohem UV-Index |
+| F11 | Symptom-Fragebogen | Symptome wie Juckreiz oder Blutung angeben |
+| F12 | Dermatologen-Zweitprüfung | Ergebnis von einem Hautarzt prüfen lassen |
+| F13 | PDF-Bericht | Ergebnis als PDF exportieren |
+| F14 | Seitenvergleich | Läsionsfotos direkt nebeneinander vergleichen |
+| F15 | Risikoprofil und Hauttyp | Risikoprofil und Hauttyp dauerhaft pflegen |
+| F16 | Teledermatologie | Fall an einen Facharzt senden |
+| F17 | Konto und Einwilligung | Registrieren und Einwilligungen verwalten |
 
 ### 4.4 Kriterien für die MVP-Auswahl
 
@@ -235,7 +235,7 @@ Tabelle [X] fasst die Entscheidungen zusammen.
 | Körperübersicht | UC-08, UC-09 | Compose Canvas |
 | Erinnerungen | UC-10, UC-11 | WorkManager |
 
-Die optionalen Anwendungsfälle aus Abschnitt 4.2 ändern an dieser Architektur nichts Grundlegendes. Die Arztsuche kann eine installierte Karten-App über einen Intent öffnen, und die UV-Warnung benötigt nur den Abruf eines öffentlichen UV-Index-Dienstes. Ein eigenes Backend ist für keinen der beiden nötig.
+Die optionalen Funktionalitäten F9 und F10 aus Abschnitt 4.3 ändern an dieser Architektur nichts Grundlegendes. Die Arztsuche kann eine installierte Karten-App über einen Intent öffnen, und die UV-Warnung benötigt nur den Abruf eines öffentlichen UV-Index-Dienstes. Ein eigenes Backend ist für keinen der beiden nötig.
 
 ## Quellen
 
