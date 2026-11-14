@@ -87,16 +87,16 @@ Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum 
 
 | ID | Bereich | Feature | Beschreibung | Gesehen bei | Use Case |
 |---|---|---|---|---|---|
-| F1 | Bildaufnahme | Geführte Kameraaufnahme | Overlay, Abstand, Fokus, automatischer Auslöser | SkinVision, SkinScreener, DERM Zero | UC-03 |
-| F2 | Bildaufnahme | Bildqualitätsprüfung | Unschärfe, Licht, Haare und Ausschnitt erkennen und eine Neuaufnahme verlangen | SkinVision, DermEngine | UC-04 |
+| F1 | Bildaufnahme | Geführte Kameraaufnahme | Overlay für Abstand und Bildausschnitt, manueller Auslöser | SkinVision, SkinScreener, DERM Zero | UC-03 |
+| F2 | Bildaufnahme | Bildqualitätsprüfung | Schärfe und Belichtung nach der Aufnahme prüfen und bei Mängeln eine Neuaufnahme verlangen | SkinVision, DermEngine | UC-04 |
 | F3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC-05 |
 | F4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC-02, UC-07 |
 | F5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC-06 |
 | F6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie, Aufnahmen und Hautstellen lassen sich löschen | SkinVision, Miiskin, MoleScope | UC-08, UC-09, UC-12 |
-| F7 | Monitoring | 2D/3D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
-| F8 | Engagement | Erinnerungen | Push/E-Mail/SMS, Intervall von 0 bis 6 Monaten einstellbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
+| F7 | Monitoring | 2D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
+| F8 | Engagement | Erinnerungen | Lokale Benachrichtigung auf dem Gerät, Intervall bis 6 Monate einstellbar oder deaktivierbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
 
-**Geführte Kameraaufnahme (F1):** Die App unterstützt beim Fotografieren, statt nur die Kamera zu öffnen. Ein Overlay im Kamerabild zeigt, wo die Hautstelle liegen soll, und Hinweise wie „näher heran“ oder „mehr Licht“ helfen, Abstand, Fokus und Belichtung richtig einzustellen. Sobald die Bedingungen passen, kann die App das Foto automatisch auslösen. So entstehen gleichmäßige Aufnahmen, die sich für die KI-Analyse und den späteren Vergleich im Verlauf eignen.
+**Geführte Kameraaufnahme (F1):** Die App unterstützt beim Fotografieren, statt nur die Kamera zu öffnen. Ein Overlay im Kamerabild zeigt, wo die Hautstelle liegen und wie groß sie erscheinen soll. So findet der Nutzer den passenden Abstand und Bildausschnitt und löst das Foto anschließend selbst aus. Schärfe und Belichtung prüft die App danach (F2). So entstehen gleichmäßige Aufnahmen, die sich für die KI-Analyse und den späteren Vergleich im Verlauf eignen.
 
 Der Hauptanwendungsfall UC-01 *Hautstelle prüfen* verbindet die Features F1 bis F5 zu einem Ablauf.
 
@@ -127,7 +127,7 @@ Bei der Auswahl der MVP-Funktionen haben wir uns an vier Kriterien orientiert:
 
 ### 4.5 Machbarkeit im Kurszeitraum
 
-Der MVP-Umfang ist im Kurszeitraum von [X Wochen] mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D/3D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
+Der MVP-Umfang ist im Kurszeitraum von [X Wochen] mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
 
 ## 5. Anwendungsfälle und Akteure
 
