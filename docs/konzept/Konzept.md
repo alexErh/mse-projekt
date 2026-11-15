@@ -91,9 +91,9 @@ Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum 
 | F2 | Bildaufnahme | Bildqualitätsprüfung | Schärfe und Belichtung nach der Aufnahme prüfen und bei Mängeln eine Neuaufnahme verlangen | SkinVision, DermEngine | UC-04 |
 | F3 | KI-Analyse | Risikoeinstufung | 3 Stufen (niedrig / mittel / hoch, Ampel) | SkinVision, SkinScreener, Skinive | UC-05 |
 | F4 | KI-Analyse | Ausschluss ungeeigneter Fälle | Kinder, Hauttyp V–VI, Schleimhaut, Nägel → direkt zum Arzt | SkinScreener (Hauttyp I–IV), NICE-Auflage bei DERM | UC-02, UC-07 |
-| F5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“ | SkinVision, SkinScreener, DERM Zero | UC-06 |
+| F5 | Ergebnis | Handlungsempfehlung | „In 3 Monaten erneut prüfen“ vs. „Dringend einen Arzt aufsuchen“, immer mit dem Hinweis, dass das Ergebnis nur eine Einschätzung ist, keinen ärztlichen Rat ersetzt und nur ein Arzt eine Diagnose stellen kann | SkinVision, SkinScreener, DERM Zero | UC-06 |
 | F6 | Monitoring | Läsionsprofil und Verlauf | Jede Hautstelle mit eigener Bildhistorie, Aufnahmen und Hautstellen lassen sich löschen | SkinVision, Miiskin, MoleScope | UC-08, UC-09, UC-12 |
-| F7 | Monitoring | 2D-Bodymap | Läsionen am Körper verorten | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
+| F7 | Monitoring | 2D-Bodymap | Läsionen auf einer Körperübersicht markieren und anzeigen | SkinVision, MoleScope, DermEngine | UC-08, UC-09 |
 | F8 | Engagement | Erinnerungen | Lokale Benachrichtigung auf dem Gerät, Intervall bis 6 Monate einstellbar oder deaktivierbar | SkinVision, UMSkinCheck, MoleScope | UC-10, UC-11 |
 
 **Geführte Kameraaufnahme (F1):** Die App unterstützt beim Fotografieren, statt nur die Kamera zu öffnen. Ein Overlay im Kamerabild zeigt, wo die Hautstelle liegen und wie groß sie erscheinen soll. So findet der Nutzer den passenden Abstand und Bildausschnitt und löst das Foto anschließend selbst aus. Schärfe und Belichtung prüft die App danach (F2). So entstehen gleichmäßige Aufnahmen, die sich für die KI-Analyse und den späteren Vergleich im Verlauf eignen.
@@ -127,7 +127,7 @@ Bei der Auswahl der MVP-Funktionen haben wir uns an vier Kriterien orientiert:
 
 ### 4.5 Machbarkeit im Kurszeitraum
 
-Der MVP-Umfang ist im Kurszeitraum von [X Wochen] mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
+Bis zur Projektabgabe am 05.02.2027 bleiben ab Mitte November knapp 12 Wochen. In diesem Zeitraum ist der MVP-Umfang mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
 
 ## 5. Anwendungsfälle und Akteure
 
