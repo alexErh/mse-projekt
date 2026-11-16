@@ -1,0 +1,80 @@
+\chapter{Architektur und Technologiestack}
+\label{chap:architektur}
+
+Drei Eigenschaften des MVP prägen die Architektur. Die App verarbeitet Hautfotos und damit Gesundheitsdaten im Sinne von Art.~9 DSGVO~\cite{dsgvo}. Der Hauptanwendungsfall hängt von Kamera und Bildanalyse ab. Und das MVP sieht kein Nutzerkonto vor. Aus der Evaluation in diesem Kapitel ergibt sich daraus eine Grundentscheidung: Die App arbeitet vollständig auf dem Gerät und kommt ohne eigenes Backend aus.
+
+\section{Komponenten}
+
+Aus den Anwendungsfällen ergeben sich acht Komponenten. Die Benutzeroberfläche umfasst alle Screens, die Navigation und die Zustandsverwaltung. Die Kameraaufnahme stellt Vorschau, Overlay und Auslöser bereit (UC-03), die Qualitätsprüfung bewertet Schärfe und Belichtung (UC-04). Die Eignungsprüfung gleicht die Angaben des Nutzers mit den Ausschlussregeln ab (UC-02, UC-07). Die KI-Einstufung ordnet ein Foto einer Risikostufe zu und leitet die Empfehlung ab (UC-05, UC-06). Die Datenhaltung speichert und löscht Hautstellen, Ergebnisse und Fotos (UC-01, UC-08, UC-09, UC-12). Über die Körperübersicht verortet und wählt der Nutzer Hautstellen (UC-08, UC-09), und die Erinnerungskomponente plant Termine und löst Benachrichtigungen aus (UC-10, UC-11).
+
+Die App folgt dem Architekturmuster Model-View-ViewModel (MVVM) mit drei Schichten. Die UI-Schicht enthält Screens und ViewModels, die Domänenschicht die Eignungsregeln und die Risikologik, die Datenschicht die Repositories für den Datenzugriff. KI-Modell und Speicher liegen hinter Schnittstellen und bleiben so austauschbar.
+
+\section{Bewertungskriterien}
+
+Alle Komponenten werden nach denselben fünf Kriterien bewertet. Beim \textbf{Datenschutz} zählt, wie viele Gesundheitsdaten das Gerät verlassen. Die \textbf{Offline-Fähigkeit} beschreibt, ob der Anwendungsfall ohne Netzverbindung funktioniert. Der \textbf{Aufwand} umfasst Umsetzung und Einarbeitung im Rahmen des Moduls, die \textbf{Kosten} laufende Ausgaben für Betrieb und Hosting. Die \textbf{Eignung} gibt an, ob eine Lösung den Anwendungsfall vollständig abdeckt. Scheidet eine Option an einem Kriterium eindeutig aus, werden die übrigen nicht weiter betrachtet.
+
+\section{Evaluation und Entscheidung}
+\label{sec:evaluation}
+
+\paragraph{Benutzeroberfläche: Kotlin mit Jetpack Compose.} Plattformübergreifende Frameworks wie Flutter oder Kotlin Multiplatform bringen keinen Vorteil, da das MVP nur Android unterstützt (\secref{zielgruppe-primaer}). Flutter bindet Kamera und KI zudem nur über Plugins an. Gegenüber klassischen XML-Layouts benötigt das deklarative Compose weniger Boilerplate-Code.
+
+\paragraph{Kameraaufnahme: CameraX.} Die System-Kamera per Intent erlaubt kein Overlay und damit keine geführte Aufnahme. Camera2 verursacht hohen Aufwand und gerätespezifische Fehlerquellen. CameraX stellt Vorschau, Aufnahme und Bildanalyse als fertige Bausteine bereit.
+
+\paragraph{Qualitätsprüfung: eigene Metriken.} OpenCV vergrößert die App deutlich für wenige genutzte Funktionen, und ein eigenes KI-Modell setzt gelabelte Trainingsdaten voraus. Für das MVP genügt es, nach der Aufnahme die Schärfe über die Varianz des Laplace-gefilterten Bildes und die Belichtung über die mittlere Helligkeit zu messen.
+
+\paragraph{Eignungsprüfung: Regeln in der Domänenschicht.} Die Ausschlussregeln sind feste Bedingungen, für die weder eine Bibliothek noch ein Dienst nötig ist.
+
+\paragraph{KI-Einstufung: LiteRT auf dem Gerät.} Die Einstufung kann auf dem Gerät, auf einem eigenen Server oder über einen externen Dienst laufen. \tabref{ki-optionen} vergleicht die drei Optionen.
+
+\begin{table}[htbp]
+\caption{Vergleich der Optionen für die KI-Einstufung}
+\label{tab:ki-optionen}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}>{\RaggedRight\arraybackslash}p{2.3cm} >{\RaggedRight\arraybackslash}X >{\RaggedRight\arraybackslash}X >{\RaggedRight\arraybackslash}X@{}}
+\toprule
+\textbf{Kriterium} & \textbf{LiteRT auf dem Gerät} & \textbf{Eigener Server (z.\,B. FastAPI mit ONNX Runtime)} & \textbf{Externer Dienst} \\
+\midrule
+Datenschutz & Fotos bleiben auf dem Gerät & Fotos gehen an den eigenen Server & Fotos gehen an Dritte \\
+Offline-Fähigkeit & ja & nein & nein \\
+Aufwand & Modell konvertieren und einbinden & zusätzlich Dienst und Hosting betreiben & gering, aber uns ist kein passender, frei nutzbarer Dienst bekannt \\
+Kosten & keine & Hosting & nutzungsabhängig \\
+Eignung & nur kompakte Modelle & auch große Modelle & vom Anbieter abhängig \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Ausschlaggebend sind Datenschutz und Offline-Fähigkeit: Die Fotos verlassen das Smartphone nicht, und es entsteht kein Server, der betrieben werden muss. Backend-as-a-Service-Plattformen scheiden für die Inferenz ohnehin aus; Supabase begrenzt seine Edge Functions etwa auf 256\,MB Arbeitsspeicher und 2\,s CPU-Zeit pro Anfrage~\cite{supabase-limits}. LiteRT ist die Laufzeitumgebung, die Google bis 2024 als TensorFlow Lite entwickelt hat~\cite{litert2024}. Ein vortrainiertes, für Mobilgeräte entworfenes Modell wie MobileNet~\cite{howard2017mobilenets} wird auf HAM10000~\cite{tschandl2018ham10000} oder dem ISIC-Archiv nachtrainiert (\secref{machbarkeit}). Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe. Zwei Einschränkungen nehmen wir bewusst in Kauf: HAM10000 enthält Nahaufnahmen, die mit einem Spezialgerät beim Hautarzt entstanden sind, keine Smartphone-Fotos~\cite{tschandl2018ham10000}, und dunkle Hauttypen kommen in öffentlichen Datensätzen kaum vor~\cite{wen2022datasets}. Das stützt den Ausschluss dunklerer Hauttypen in der Eignungsprüfung.
+
+\paragraph{Datenhaltung: Room und privater App-Speicher.} Supabase würde Synchronisation und Gerätewechsel ermöglichen, erfordert dafür aber Login, Zugriffsregeln und die Speicherung von Gesundheitsdaten auf einem Server, und das für Funktionen außerhalb des MVP. Die App speichert daher alles lokal: strukturierte Daten in einer SQLite-Datenbank über die Jetpack-Bibliothek Room, Fotos als Dateien im privaten App-Speicher. Beides wird von der Android-Datensicherung ausgeschlossen, damit keine Gesundheitsdaten ungewollt in die Cloud gelangen.
+
+\paragraph{Körperübersicht: Compose Canvas.} Eine 3D-Bibliothek geht über den MVP-Umfang hinaus, und eine SVG-Grafik in einer WebView erfordert eine Brücke zwischen Web- und App-Code. Auf dem Canvas lassen sich Vorder- und Rückseite eines Körperumrisses ohne zusätzliche Abhängigkeit zeichnen. Als Rückfallebene dient eine Auswahlliste der Körperregionen (\secref{machbarkeit}).
+
+\paragraph{Erinnerungen: WorkManager.} Push-Nachrichten über Firebase Cloud Messaging setzen einen Server voraus. AlarmManager löst minutengenau aus, benötigt dafür ab Android 12 aber eine widerrufbare Sonderberechtigung, die bei Intervallen von Wochen bis Monaten unnötig ist. WorkManager plant Aufgaben auch nach einem Neustart des Geräts erneut ein.
+
+\section{Gewählter Stack}
+
+\tabref{stack} fasst die Entscheidungen zusammen.
+
+\begin{table}[htbp]
+\caption{Gewählter Technologiestack}
+\label{tab:stack}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
+\toprule
+\textbf{Komponente} & \textbf{Anwendungsfälle} & \textbf{Technologie} \\
+\midrule
+Benutzeroberfläche & alle & Kotlin, Jetpack Compose, MVVM \\
+Kameraaufnahme & UC-03 & CameraX \\
+Qualitätsprüfung & UC-04 & eigene Metriken \\
+Eignungsprüfung & UC-02, UC-07 & Regeln in der Domänenschicht \\
+KI-Einstufung & UC-05, UC-06 & LiteRT, nachtrainiertes Modell \\
+Datenhaltung & UC-01, UC-08, UC-09, UC-12 & Room, privater App-Speicher \\
+Körperübersicht & UC-08, UC-09 & Compose Canvas \\
+Erinnerungen & UC-10, UC-11 & WorkManager \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Die optionalen Funktionalitäten F9 und F10 aus \secref{nicht-mvp} ändern an dieser Architektur nichts Grundlegendes. Die Arztsuche kann eine installierte Karten-App über einen Intent öffnen, und die UV-Warnung benötigt nur den Abruf eines öffentlichen UV-Index-Dienstes. Ein eigenes Backend ist für keinen der beiden nötig.

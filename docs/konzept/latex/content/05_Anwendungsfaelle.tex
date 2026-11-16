@@ -1,0 +1,56 @@
+\chapter{Anwendungsfälle und Akteure}
+\label{chap:usecases}
+
+Die Anwendungsfälle verfeinern den in \chapref{mvp} beschriebenen MVP-Umfang zu konkreten Abläufen. Aus ihnen leiten sich die Komponenten und der Technologiestack in \chapref{architektur} ab.
+
+\section{Akteure}
+
+Das MVP kennt einen einzigen Akteur: den Nutzer, eine erwachsene Person, die Hautstellen selbst fotografiert, einschätzen lässt und über die Zeit beobachtet. Das KI-Modell läuft auf dem Smartphone und ist damit Teil des Systems (\secref{evaluation}). Auch die Erinnerungen plant und löst die App selbst aus, ohne externen Dienst. Hautärzte sind nicht beteiligt, da die App den Arztbesuch nur empfiehlt (\secref{zielgruppe-abgrenzung}).
+
+\section{Use-Case-Diagramm}
+
+\figref{usecase} zeigt die zwölf Anwendungsfälle des MVP. Sechs davon startet der Nutzer direkt: Er prüft eine Hautstelle (UC-01), legt eine Hautstelle an (UC-08), sieht ihren Verlauf ein (UC-09), stellt eine Erinnerung ein (UC-10), wird an eine Kontrolle erinnert (UC-11) und löscht Hautstellen oder Aufnahmen (UC-12). Die übrigen Anwendungsfälle sind Teilschritte der Prüfung. Eine include-Beziehung kennzeichnet einen Schritt, der bei jeder Prüfung ausgeführt wird, eine extend-Beziehung einen Schritt, der nur unter einer Bedingung hinzukommt.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{use-case-diagramm.png}
+\caption{Use-Case-Diagramm des MVP}
+\label{fig:usecase}
+\end{figure}
+
+\section{Hauptanwendungsfall: Hautstelle prüfen}
+
+Der zentrale Anwendungsfall UC-01 führt den Nutzer von der Aufnahme einer Hautstelle zu einer Risikoeinstufung und einem klaren nächsten Schritt. Voraussetzung ist, dass der Nutzer der App den Kamerazugriff erlaubt hat. Der Ablauf gliedert sich in sechs Schritte:
+
+\begin{enumerate}
+\item Der Nutzer startet die Prüfung für eine neue oder eine bereits angelegte Hautstelle.
+\item Die App prüft, ob der Fall für eine Einstufung geeignet ist (UC-02).
+\item Der Nutzer fotografiert die Hautstelle (UC-03).
+\item Die App stuft das Risiko ein (UC-05).
+\item Die App zeigt die Einstufung zusammen mit einer Handlungsempfehlung an (UC-06).
+\item Die App speichert das Ergebnis bei der Hautstelle. Eine neue Hautstelle legt der Nutzer dabei auf der Körperübersicht an (UC-08).
+\end{enumerate}
+
+Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist die App an einen Arzt (UC-07) und beendet die Prüfung ohne Einstufung. Schlägt die Analyse fehl, zeigt die App keine Einstufung an und bietet einen neuen Versuch an. Eine Einstufung erscheint also nur nach bestandener Eignungs- und Qualitätsprüfung, und jedes Ergebnis ist anschließend im Verlauf der Hautstelle sichtbar.
+
+\section{Teilschritte der Prüfung}
+
+\paragraph{Eignung prüfen (UC-02).} Bevor ein Foto ausgewertet wird, gibt der Nutzer Alter, Hauttyp und Körperstelle an. Die App sortiert damit Fälle aus, für die eine Einstufung nicht verantwortbar ist: Personen unter 18 Jahren, dunklere Hauttypen sowie Stellen an Schleimhäuten (etwa im Mund) oder an Nägeln. Jeder dieser Gründe führt zum Arztverweis (UC-07), der den konkreten Ausschlussgrund nennt und eine ärztliche Abklärung empfiehlt.
+
+\paragraph{Foto aufnehmen (UC-03) und Bildqualität prüfen (UC-04).} Ein Overlay in der Kameravorschau führt den Nutzer zu passendem Abstand und Bildausschnitt, die Aufnahme löst er selbst aus. Anschließend prüft die App Schärfe und Belichtung. Unscharfe oder zu dunkle Fotos lehnt sie ab, nennt den Grund und fordert eine neue Aufnahme an. Hat der Nutzer den Kamerazugriff verweigert, erklärt die App, wie er ihn erteilen kann.
+
+\paragraph{Risiko einstufen (UC-05) und Handlungsempfehlung anzeigen (UC-06).} Das KI-Modell ordnet das Foto einer von drei Stufen zu: niedrig, mittel oder hoch. Jede Stufe hat eine feste Empfehlung. Bei niedrigem Risiko beobachtet der Nutzer die Hautstelle weiter und prüft sie in drei Monaten erneut, bei mittlerem Risiko soll er sie zeitnah und bei hohem Risiko dringend beim Arzt anschauen lassen. Bei jeder Stufe weist die App darauf hin, dass das Ergebnis keine Diagnose ist.
+
+\section{Hautstellen und Verlauf}
+
+\paragraph{Hautstelle anlegen und verorten (UC-08).} Jede beobachtete Hautstelle wird auf einer zweidimensionalen Körperübersicht markiert und kann einen Namen erhalten. Die Körperstelle aus der Eignungsprüfung ist dabei vorausgewählt. Der Anwendungsfall erweitert die Prüfung, wenn das Ergebnis zu einer neuen Hautstelle gehört, und lässt sich auch unabhängig davon nutzen.
+
+\paragraph{Verlauf einsehen (UC-09).} Wählt der Nutzer eine Hautstelle auf der Körperübersicht aus, zeigt die App alle Fotos und Einstufungen nach Datum sortiert an. Von hier aus kann er direkt eine Folgeprüfung (UC-01) für diese Hautstelle starten.
+
+\paragraph{Hautstelle oder Aufnahme löschen (UC-12).} Der Nutzer kann einzelne Aufnahmen oder eine ganze Hautstelle samt Verlauf und Erinnerung löschen. Da gelöschte Fotos nicht wiederhergestellt werden können, fragt die App vorher nach einer Bestätigung. Der Nutzer behält so die Kontrolle über seine Bilder (\secref{zielgruppe-anforderungen}).
+
+\section{Erinnerungen}
+
+\paragraph{Erinnerung einstellen (UC-10).} Für jede angelegte Hautstelle wählt der Nutzer ein Kontrollintervall von bis zu sechs Monaten. Er kann das Intervall jederzeit ändern oder die Erinnerung deaktivieren.
+
+\paragraph{An Kontrolle erinnert werden (UC-11).} Ist der Termin erreicht, zeigt die App eine Benachrichtigung an. Durch Antippen öffnet sich die Folgeprüfung der betreffenden Hautstelle. Hat der Nutzer Benachrichtigungen nicht erlaubt, erscheint die fällige Kontrolle stattdessen in der App.

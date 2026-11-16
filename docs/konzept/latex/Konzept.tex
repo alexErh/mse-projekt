@@ -1,0 +1,71 @@
+%% Projektkonzept (THM thesis-template, Koma-Script) -----------------------
+\documentclass[%
+   final,
+   paper=a4,
+   paper=portrait,
+   pagesize=auto,
+   fontsize=11pt,
+   version=last,
+ ]{scrreprt}
+
+\usepackage[utf8]{inputenc}
+
+% Sprache: ngerman oder english
+\def\lang{ngerman}
+
+%%% Preambel
+\input{preambel/settings}
+\input{preambel/preambel}
+
+% Autoren (vier Personen, in der Titelseite untereinander gesetzt)
+\newcommand{\authorOne}{Toyela Kraus (5029989)}
+\newcommand{\authorTwo}{Yohanes Ranandika Kirana (5310931)}
+\newcommand{\authorThree}{Alexandr Ergheledji (5288393)}
+\newcommand{\authorFour}{Leonard Felix Müller (5385113)}
+
+\author{\authorOne\\\authorTwo\\\authorThree\\\authorFour}
+\title{Smartphone-App zur Hautkrebsvorsorge}
+\newcommand{\theSubtitle}{Projektkonzept}
+\newcommand{\theCourse}{Mobile Software Engineering}
+\newcommand{\theSemester}{Wintersemester 2026/27}
+
+\hypersetup{
+   pdftitle={\theTitle{} -- \theSubtitle},
+   pdfauthor={\authorOne, \authorTwo, \authorThree, \authorFour},
+}
+
+%%%% Neue Befehle
+\input{macros/newcommands}
+\input{macros/TableCommands}
+
+%%% Silbentrennung
+\input{preambel/Hyphenation}
+
+% Bilder liegen eine Ebene höher neben dem Markdown-Konzept
+\graphicspath{{images/}{../}}
+
+%% Dokument Beginn %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\input{content/00_Titel}
+\cleardoublepage
+\frontmatter
+\pdfbookmark[1]{Inhaltsverzeichnis}{toc}
+\tableofcontents
+\cleardoublepage
+
+\mainmatter
+\input{content/01_Projektbeschreibung}
+\input{content/02_Motivation}
+\input{content/03_Zielgruppe}
+\input{content/04_MVP}
+\input{content/05_Anwendungsfaelle}
+\input{content/06_Architektur}
+
+% Literaturverzeichnis
+\bibliography{bib/BibtexDatabase}
+\clearpage
+\listoffigures
+\listoftables
+
+\end{document}
