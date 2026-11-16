@@ -1,19 +1,19 @@
-\chapter{Architektur und Technologiestack}
+\section{Architektur und Technologiestack}
 \label{chap:architektur}
 
 Drei Eigenschaften des MVP prägen die Architektur. Die App verarbeitet Hautfotos und damit Gesundheitsdaten im Sinne von Art.~9 DSGVO~\cite{dsgvo}. Der Hauptanwendungsfall hängt von Kamera und Bildanalyse ab. Und das MVP sieht kein Nutzerkonto vor. Aus der Evaluation in diesem Kapitel ergibt sich daraus eine Grundentscheidung: Die App arbeitet vollständig auf dem Gerät und kommt ohne eigenes Backend aus.
 
-\section{Komponenten}
+\subsection{Komponenten}
 
 Aus den Anwendungsfällen ergeben sich acht Komponenten. Die Benutzeroberfläche umfasst alle Screens, die Navigation und die Zustandsverwaltung. Die Kameraaufnahme stellt Vorschau, Overlay und Auslöser bereit (UC-03), die Qualitätsprüfung bewertet Schärfe und Belichtung (UC-04). Die Eignungsprüfung gleicht die Angaben des Nutzers mit den Ausschlussregeln ab (UC-02, UC-07). Die KI-Einstufung ordnet ein Foto einer Risikostufe zu und leitet die Empfehlung ab (UC-05, UC-06). Die Datenhaltung speichert und löscht Hautstellen, Ergebnisse und Fotos (UC-01, UC-08, UC-09, UC-12). Über die Körperübersicht verortet und wählt der Nutzer Hautstellen (UC-08, UC-09), und die Erinnerungskomponente plant Termine und löst Benachrichtigungen aus (UC-10, UC-11).
 
 Die App folgt dem Architekturmuster Model-View-ViewModel (MVVM) mit drei Schichten. Die UI-Schicht enthält Screens und ViewModels, die Domänenschicht die Eignungsregeln und die Risikologik, die Datenschicht die Repositories für den Datenzugriff. KI-Modell und Speicher liegen hinter Schnittstellen und bleiben so austauschbar.
 
-\section{Bewertungskriterien}
+\subsection{Bewertungskriterien}
 
 Alle Komponenten werden nach denselben fünf Kriterien bewertet. Beim \textbf{Datenschutz} zählt, wie viele Gesundheitsdaten das Gerät verlassen. Die \textbf{Offline-Fähigkeit} beschreibt, ob der Anwendungsfall ohne Netzverbindung funktioniert. Der \textbf{Aufwand} umfasst Umsetzung und Einarbeitung im Rahmen des Moduls, die \textbf{Kosten} laufende Ausgaben für Betrieb und Hosting. Die \textbf{Eignung} gibt an, ob eine Lösung den Anwendungsfall vollständig abdeckt. Scheidet eine Option an einem Kriterium eindeutig aus, werden die übrigen nicht weiter betrachtet.
 
-\section{Evaluation und Entscheidung}
+\subsection{Evaluation und Entscheidung}
 \label{sec:evaluation}
 
 \paragraph{Benutzeroberfläche: Kotlin mit Jetpack Compose.} Plattformübergreifende Frameworks wie Flutter oder Kotlin Multiplatform bringen keinen Vorteil, da das MVP nur Android unterstützt (\secref{zielgruppe-primaer}). Flutter bindet Kamera und KI zudem nur über Plugins an. Gegenüber klassischen XML-Layouts benötigt das deklarative Compose weniger Boilerplate-Code.
@@ -52,7 +52,7 @@ Ausschlaggebend sind Datenschutz und Offline-Fähigkeit: Die Fotos verlassen das
 
 \paragraph{Erinnerungen: WorkManager.} Push-Nachrichten über Firebase Cloud Messaging setzen einen Server voraus. AlarmManager löst minutengenau aus, benötigt dafür ab Android 12 aber eine widerrufbare Sonderberechtigung, die bei Intervallen von Wochen bis Monaten unnötig ist. WorkManager plant Aufgaben auch nach einem Neustart des Geräts erneut ein.
 
-\section{Gewählter Stack}
+\subsection{Gewählter Stack}
 
 \tabref{stack} fasst die Entscheidungen zusammen.
 

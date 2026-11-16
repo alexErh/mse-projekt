@@ -1,11 +1,11 @@
-\chapter{Umfang des MVP}
+\section{Umfang des MVP}
 \label{chap:mvp}
 
-\section{Kleinste nützliche Version}
+\subsection{Kleinste nützliche Version}
 
 Die kleinste nützliche Version der App ermöglicht es, eine Hautstelle zu fotografieren, eine Risikoeinschätzung zu erhalten und daraus eine klare Handlungsempfehlung abzuleiten. Schon damit erfüllt die App ihren Kernzweck: Nutzer erkennen, ob eine Hautveränderung ärztlich abgeklärt werden sollte.
 
-\section{MVP-Funktionalitäten}
+\subsection{MVP-Funktionalitäten}
 \label{sec:mvp-funktionen}
 
 Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum Viable Product (MVP) ausgewählt. Die zugehörigen Anwendungsfälle sind in \chapref{usecases} beschrieben.
@@ -35,7 +35,7 @@ F8 & Engagement & Erinnerungen & Lokale Benachrichtigung auf dem Gerät, Interva
 
 Der Hauptanwendungsfall UC-01 \emph{Hautstelle prüfen} verbindet die Features F1 bis F5 zu einem Ablauf.
 
-\section{Nicht-MVP-Funktionalitäten}
+\subsection{Nicht-MVP-Funktionalitäten}
 \label{sec:nicht-mvp}
 
 Die folgenden Funktionalitäten gehören zur langfristigen Vision und werden im Kurs nur umgesetzt, wenn Zeit bleibt:
@@ -62,7 +62,7 @@ F17 & Konto und Einwilligung & Registrieren und Einwilligungen verwalten \\
 \end{tabularx}
 \end{table}
 
-\section{Kriterien für die MVP-Auswahl}
+\subsection{Kriterien für die MVP-Auswahl}
 
 Bei der Auswahl der MVP-Funktionen haben wir uns an vier Kriterien orientiert:
 
@@ -73,7 +73,7 @@ Bei der Auswahl der MVP-Funktionen haben wir uns an vier Kriterien orientiert:
 \item \textbf{Abhängigkeiten:} Bauen andere Funktionen darauf auf?
 \end{enumerate}
 
-\section{Machbarkeit im Kurszeitraum}
+\subsection{Machbarkeit im Kurszeitraum}
 \label{sec:machbarkeit}
 
 Bis zur Projektabgabe am 05.02.2027 bleiben ab Mitte November knapp 12 Wochen. In diesem Zeitraum ist der MVP-Umfang mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.

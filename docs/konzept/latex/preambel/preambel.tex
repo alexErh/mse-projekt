@@ -868,7 +868,7 @@
 %
 %%% Doc: ftp://tug.ctan.org/pub/tex-archive/macros/latex/contrib/setspace/setspace.sty
 \usepackage{setspace}
-\onehalfspacing		% 1,5-facher Abstand
+\setstretch{1.08}		% knapper Zeilenabstand
 %\doublespacing		% 2-facher Abstand
 % hereafter load 'typearea' again
 
@@ -938,8 +938,8 @@
                   % Alias : tmargin
    %bottom=3cm,      % bottom margin of the page
                   % Alias : bmargin
-   hmargin={3.5cm, 2.5cm },     % left and right margin. hmargin={ left margin , right margin }
-   vmargin={3cm, 3cm },     % top and bottom margin. vmargin={ top margin , bottom margin }
+   hmargin={2.5cm, 2.5cm },     % left and right margin. hmargin={ left margin , right margin }
+   vmargin={2.5cm, 2.5cm },     % top and bottom margin. vmargin={ top margin , bottom margin }
    %margin=,      % margin={A,B} is equivalent to hmargin={A,B} and vmargin={A,B}
    %hmarginratio, % horizontal margin ratio of left (inner) to right (outer).
    %vmarginratio, % vertical margin ratio of top to bottom.
@@ -950,7 +950,7 @@
    %twoside,       % switches on twoside mode with left and right margins swapped on verso pages.
    %asymmetric,   % implements a twosided layout in which margins are not swapped on alternate pages
                   % and in which the marginal notes stay always on the same side.
-   bindingoffset=5mm,  % removes a specified space for binding
+   bindingoffset=0mm,  % removes a specified space for binding
 %%% Dimensionen
    %headheight=,  % Alias:  head
    %headsep=,     % separation between header and text
@@ -1653,4 +1653,4 @@
 %------------------------------------------------------------------------
 
 \setlength{\parindent}{0em}
-\setlength{\parskip}{1em}
+\setlength{\parskip}{0.5em}

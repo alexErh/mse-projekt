@@ -4,9 +4,9 @@
    paper=a4,
    paper=portrait,
    pagesize=auto,
-   fontsize=11pt,
+   fontsize=10pt,
    version=last,
- ]{scrreprt}
+ ]{scrartcl}
 
 \usepackage[utf8]{inputenc}
 
@@ -48,13 +48,10 @@
 
 \begin{document}
 \input{content/00_Titel}
-\cleardoublepage
-\frontmatter
+\clearpage
 \pdfbookmark[1]{Inhaltsverzeichnis}{toc}
-\tableofcontents
-\cleardoublepage
+{\setcounter{tocdepth}{1}\tableofcontents}
 
-\mainmatter
 \input{content/01_Projektbeschreibung}
 \input{content/02_Motivation}
 \input{content/03_Zielgruppe}
@@ -64,8 +61,5 @@
 
 % Literaturverzeichnis
 \bibliography{bib/BibtexDatabase}
-\clearpage
-\listoffigures
-\listoftables
 
 \end{document}

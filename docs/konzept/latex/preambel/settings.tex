@@ -1,24 +1,21 @@
 %%% === Textbody ==============================================================
 \KOMAoptions{%
-   DIV=11,% (Size of Text Body, higher values = greater textbody)
+   DIV=12,% (Size of Text Body, higher values = greater textbody)
    % DIV=calc % (also areaset/classic/current/default/last) 
    % -> after setting of spacing necessary!   
-   BCOR=5mm% (Bindekorrektur)
+   BCOR=0mm% (Bindekorrektur)
 }%
 %%% === Headings ==============================================================
 \KOMAoptions{%
    %%%% headings
 	% headings=small,  % Small Font Size, thin spacing above and below
    % headings=normal, % Medium Font Size, medium spacing above and below
-   headings=big, % Big Font Size, large spacing above and below
+   headings=small, % Big Font Size, large spacing above and below
    %
-   headings=noappendixprefix, % chapter in appendix as in body text
-	headings=nochapterprefix,  % no prefix at chapters
    % headings=appendixprefix,   % inverse of 'noappendixprefix'
    % headings=chapterprefix,    % inverse of 'nochapterprefix'
    % headings=openany,   % Chapters start at any side
    % headings=openleft,  % Chapters start at left side
-   headings=openany, % Chapters start at any side      
    %%% Add/Dont/Auto Dot behind section numbers 
    %%% (see DUDEN as reference)
    % numbers=autoenddot
@@ -29,7 +26,7 @@
 \setcounter{secnumdepth}{3}
 %%% === Page Layout ===========================================================
 \KOMAoptions{% (most options are for package typearea)
-   twoside=true, % two side layout (alternating margins, standard in books)
+   twoside=false, % two side layout (alternating margins, standard in books)
    % twoside=false, % single side layout 
    % twoside=semi,  % two side layout (non alternating margins!)
    %
@@ -89,7 +86,6 @@
    % listof=chapterentry, % ??? Chapter starts are marked in figure/table
    % listof=chaptergapline, % New chapter starts are marked by a gap 
       		  			   	 % of a single line
-	listof=chaptergapsmall, % New chapter starts are marked by a gap 
    	    					   % of a smallsingle line
    % listof=nochaptergap, % No Gap between chapters
    %
