@@ -32,9 +32,11 @@ Scheidet eine Option an einem Kriterium eindeutig aus, werden die übrigen nicht
 
 \paragraph{Benutzeroberfläche: Kotlin mit Jetpack Compose.} Das MVP unterstützt nur Android (\secref{zielgruppe-primaer}), plattformübergreifende Frameworks wie Flutter bringen deshalb keinen Vorteil. Compose ist zudem schlanker als klassische XML-Layouts.
 
-\paragraph{Kameraaufnahme: CameraX.} Die System-Kamera erlaubt kein Overlay und damit keine geführte Aufnahme. Camera2 ist aufwendig und anfällig für gerätespezifische Fehler. CameraX liefert Vorschau, Aufnahme und Bildanalyse als fertige Bausteine.
+\paragraph{Kameraaufnahme: CameraX.} Die System-Kamera erlaubt kein Overlay und damit keine geführte Aufnahme. Camera2 ist aufwendig und anfällig für gerätespezifische Fehler. CameraX liefert Vorschau, Aufnahme und Bildanalyse als fertige Bausteine~\cite{android-camerax}.
 
-\paragraph{Qualitätsprüfung: eigene Metriken.} OpenCV wäre für wenige Funktionen zu groß, ein eigenes KI-Modell bräuchte gelabelte Trainingsdaten. Für das MVP genügen zwei einfache Messwerte: die Schärfe über die Varianz des Laplace-gefilterten Bildes und die Belichtung über die mittlere Helligkeit.
+\paragraph{Qualitätsprüfung: eigene Metriken.} OpenCV wäre für wenige Funktionen zu groß, ein eigenes KI-Modell bräuchte gelabelte Trainingsdaten. Für das MVP genügen zwei einfache Messwerte: die Schärfe über die Varianz des Laplace-gefilterten Bildes~\cite{pechpacheco2000} und die Belichtung über die mittlere Helligkeit.
+
+\paragraph{Eignungsprüfung: Regeln in der Domänenschicht.} Die Ausschlussregeln sind feste Bedingungen, für die weder eine Bibliothek noch ein Dienst nötig ist.
 
 \paragraph{KI-Einstufung: LiteRT auf dem Gerät.} Die Einstufung kann auf dem Gerät, auf einem eigenen Server oder über einen externen Dienst laufen. \tabref{ki-optionen} vergleicht die drei Optionen.
 
@@ -58,15 +60,15 @@ Eignung & nur kompakte Modelle & auch große Modelle & vom Anbieter abhängig \\
 
 Ausschlaggebend sind Datenschutz und Offline-Fähigkeit: Die Fotos verlassen das Smartphone nicht, und es muss kein Server betrieben werden. Backend-as-a-Service-Plattformen wie Supabase scheiden aus, weil ihre Edge Functions für Bildanalyse zu stark begrenzt sind~\cite{supabase-limits}.
 
-LiteRT ist die Laufzeitumgebung, die Google bis 2024 als TensorFlow Lite entwickelt hat~\cite{litert2024}. Darin läuft ein für Mobilgeräte entworfenes Modell wie MobileNet~\cite{howard2017mobilenets}, das wir auf HAM10000~\cite{tschandl2018ham10000} oder dem ISIC-Archiv nachtrainieren (\secref{machbarkeit}). Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe.
+LiteRT ist die Laufzeitumgebung, die Google bis 2024 als TensorFlow Lite entwickelt hat~\cite{litert2024}. Darin läuft ein für Mobilgeräte entworfenes Modell wie MobileNet~\cite{howard2017mobilenets}, das wir auf HAM10000~\cite{tschandl2018ham10000} oder dem ISIC-Archiv~\cite{isic-archive} nachtrainieren (\secref{machbarkeit}). Die drei Risikostufen entstehen über Schwellenwerte auf der Modellausgabe.
 
 Zwei Einschränkungen nehmen wir bewusst in Kauf. HAM10000 enthält Nahaufnahmen vom Hautarzt, keine Smartphone-Fotos~\cite{tschandl2018ham10000}, und dunkle Hauttypen sind in öffentlichen Datensätzen kaum vertreten~\cite{wen2022datasets}. Das stützt den Ausschluss dunklerer Hauttypen in der Eignungsprüfung.
 
-\paragraph{Datenhaltung: Room und privater App-Speicher.} Supabase würde Synchronisation und Gerätewechsel ermöglichen, verlangt dafür aber Login und die Speicherung von Gesundheitsdaten auf einem Server. Beides geht über das MVP hinaus. Die App speichert deshalb alles lokal: Strukturierte Daten liegen in einer Room-Datenbank, Fotos im privaten App-Speicher. Von der Android-Datensicherung sind beide ausgeschlossen, damit keine Gesundheitsdaten ungewollt in die Cloud gelangen.
+\paragraph{Datenhaltung: Room und privater App-Speicher.} Supabase würde Synchronisation und Gerätewechsel ermöglichen, verlangt dafür aber Login und die Speicherung von Gesundheitsdaten auf einem Server. Beides geht über das MVP hinaus. Die App speichert deshalb alles lokal: Strukturierte Daten liegen in einer Room-Datenbank~\cite{android-room}, Fotos im privaten App-Speicher. Von der Android-Datensicherung sind beide ausgeschlossen~\cite{android-autobackup}, damit keine Gesundheitsdaten ungewollt in die Cloud gelangen.
 
 \paragraph{Körperübersicht: Compose Canvas.} Eine 3D-Bibliothek wäre für das MVP zu aufwendig, eine SVG-Grafik in einer WebView bräuchte eine Brücke zwischen Web- und App-Code. Auf dem Canvas lässt sich ein Körperumriss für Vorder- und Rückseite ohne zusätzliche Abhängigkeit zeichnen. Als Rückfallebene dient eine Auswahlliste der Körperregionen (\secref{machbarkeit}).
 
-\paragraph{Erinnerungen: WorkManager.} Push-Nachrichten über Firebase Cloud Messaging brauchen einen Server. AlarmManager ist unnötig genau und verlangt ab Android 12 eine widerrufbare Sonderberechtigung, obwohl die Intervalle Wochen bis Monate betragen. WorkManager plant Aufgaben auch nach einem Neustart des Geräts wieder ein.
+\paragraph{Erinnerungen: WorkManager.} Push-Nachrichten über Firebase Cloud Messaging brauchen einen Server. AlarmManager ist unnötig genau und verlangt ab Android 12 eine widerrufbare Sonderberechtigung~\cite{android-alarms}, obwohl die Intervalle Wochen bis Monate betragen. WorkManager plant Aufgaben auch nach einem Neustart des Geräts wieder ein~\cite{android-workmanager}.
 
 \subsection{Gewählter Stack}
 

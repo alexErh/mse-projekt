@@ -35,7 +35,7 @@ Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist
 
 \subsection{Teilschritte der Prüfung}
 
-\paragraph{Eignung prüfen (UC-02).} Bevor ein Foto ausgewertet wird, gibt der Nutzer Alter, Hauttyp und Körperstelle an. Die App sortiert damit Fälle aus, für die eine Einstufung nicht verantwortbar ist: Personen unter 18 Jahren, dunklere Hauttypen sowie Stellen an Schleimhäuten (etwa im Mund) oder an Nägeln. Jeder dieser Gründe führt zum Arztverweis (UC-07), der den konkreten Ausschlussgrund nennt und eine ärztliche Abklärung empfiehlt.
+\paragraph{Eignung prüfen (UC-02).} Bevor ein Foto ausgewertet wird, gibt der Nutzer Alter, Hauttyp und Körperstelle an. Die App sortiert damit Fälle aus, für die eine Einstufung nicht verantwortbar ist: Personen unter 18 Jahren, dunklere Hauttypen sowie Stellen an Schleimhäuten (etwa im Mund) oder an Nägeln~\cite{skinscreener-ifu,nice-htg746}. Jeder dieser Gründe führt zum Arztverweis (UC-07), der den konkreten Ausschlussgrund nennt und eine ärztliche Abklärung empfiehlt.
 
 \paragraph{Foto aufnehmen (UC-03) und Bildqualität prüfen (UC-04).} Ein Overlay in der Kameravorschau führt den Nutzer zu passendem Abstand und Bildausschnitt, die Aufnahme löst er selbst aus. Anschließend prüft die App Schärfe und Belichtung. Unscharfe oder zu dunkle Fotos lehnt sie ab, nennt den Grund und fordert eine neue Aufnahme an. Hat der Nutzer den Kamerazugriff verweigert, erklärt die App, wie er ihn erteilen kann.
 
@@ -43,9 +43,9 @@ Zwei Situationen weichen von diesem Ablauf ab. Ist der Fall ungeeignet, verweist
 
 \subsection{Hautstellen und Verlauf}
 
-\paragraph{Hautstelle anlegen und markieren (UC-08).} Jede beobachtete Hautstelle wird auf einer zweidimensionalen Körperübersicht markiert und kann einen Namen erhalten. Die Körperstelle aus der Eignungsprüfung ist dabei vorausgewählt. Der Anwendungsfall erweitert die Prüfung, wenn das Ergebnis zu einer neuen Hautstelle gehört, und lässt sich auch unabhängig davon nutzen.
+\paragraph{Hautstelle anlegen und markieren (UC-08).} Jede beobachtete Hautstelle wird auf einer zweidimensionalen Körperübersicht markiert und kann einen Namen erhalten. Die Körperstelle aus der Eignungsprüfung ist dabei vorausgewählt. Der Anwendungsfall erweitert die Prüfung, wenn das Ergebnis zu einer neuen Hautstelle gehört, und lässt sich auch unabhängig davon nutzen. Steht die Körperübersicht nicht zur Verfügung (siehe \secref{machbarkeit}), wählt der Nutzer die Körperregion stattdessen aus einer Liste.
 
-\paragraph{Verlauf einsehen (UC-09).} Wählt der Nutzer eine Hautstelle auf der Körperübersicht aus, zeigt die App alle Fotos und Einstufungen nach Datum sortiert an. Von hier aus kann er direkt eine Folgeprüfung (UC-01) für diese Hautstelle starten.
+\paragraph{Verlauf einsehen (UC-09).} Wählt der Nutzer eine Hautstelle auf der Körperübersicht oder, in der Rückfalllösung, aus der Liste der Hautstellen aus, zeigt die App alle Fotos und Einstufungen nach Datum sortiert an. Von hier aus kann er direkt eine Folgeprüfung (UC-01) für diese Hautstelle starten.
 
 \paragraph{Hautstelle oder Aufnahme löschen (UC-12).} Der Nutzer kann einzelne Aufnahmen oder eine ganze Hautstelle samt Verlauf und Erinnerung löschen. Da gelöschte Fotos nicht wiederhergestellt werden können, fragt die App vorher nach einer Bestätigung. Der Nutzer behält so die Kontrolle über seine Bilder (\secref{zielgruppe-anforderungen}).
 

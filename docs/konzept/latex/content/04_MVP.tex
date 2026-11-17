@@ -8,7 +8,7 @@ Die kleinste nützliche Version der App ermöglicht es, eine Hautstelle zu fotog
 \subsection{MVP-Funktionalitäten}
 \label{sec:mvp-funktionen}
 
-Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum Viable Product (MVP) ausgewählt. Die zugehörigen Anwendungsfälle sind in \chapref{usecases} beschrieben.
+Aus der Marktanalyse~\cite{marktanalyse2026} haben wir die folgenden Funktionalitäten für das Minimum Viable Product (MVP) ausgewählt. Die zugehörigen Anwendungsfälle sind in \chapref{usecases} beschrieben.
 
 \begin{table}[htbp]
 \caption{MVP-Funktionalitäten}
@@ -19,14 +19,14 @@ Aus der Marktanalyse haben wir die folgenden Funktionalitäten für das Minimum 
 \toprule
 \textbf{ID} & \textbf{Bereich} & \textbf{Feature} & \textbf{Beschreibung} & \textbf{Gesehen bei} & \textbf{Use Case} \\
 \midrule
-F1 & Bildaufnahme & Geführte Kameraaufnahme & Overlay für Abstand und Bildausschnitt, manueller Auslöser & SkinVision, SkinScreener, DERM Zero & UC-03 \\
-F2 & Bildaufnahme & Bildqualitätsprüfung & Schärfe und Belichtung nach der Aufnahme prüfen und bei Mängeln eine Neuaufnahme verlangen & SkinVision, DermEngine & UC-04 \\
-F3 & KI-Analyse & Risikoeinstufung & 3 Stufen (niedrig / mittel / hoch, Ampel) & SkinVision, SkinScreener, Skinive & UC-05 \\
-F4 & KI-Analyse & Ausschluss ungeeigneter Fälle & Kinder, Hauttyp V--VI, Schleimhaut, Nägel $\rightarrow$ direkt zum Arzt & SkinScreener (Hauttyp I--IV), NICE-Auflage bei DERM & UC-02, UC-07 \\
+F1 & Bildaufnahme & Geführte Kameraaufnahme & Overlay für Abstand und Bildausschnitt, manueller Auslöser & SkinVision~\cite{app-skinvision}, SkinScreener~\cite{app-skinscreener}, DERM Zero~\cite{app-dermzero} & UC-03 \\
+F2 & Bildaufnahme & Bildqualitätsprüfung & Schärfe und Belichtung nach der Aufnahme prüfen und bei Mängeln eine Neuaufnahme verlangen & SkinVision, DermEngine~\cite{app-dermengine} & UC-04 \\
+F3 & KI-Analyse & Risikoeinstufung & 3 Stufen (niedrig / mittel / hoch, Ampel) & SkinVision, SkinScreener, Skinive~\cite{app-skinive} & UC-05 \\
+F4 & KI-Analyse & Ausschluss ungeeigneter Fälle & Kinder, Hauttyp V--VI, Schleimhaut, Nägel $\rightarrow$ direkt zum Arzt & SkinScreener (Hauttyp I--IV)~\cite{skinscreener-ifu}, NICE-Auflage~\cite{nice-htg746} bei DERM~\cite{app-derm} & UC-02, UC-07 \\
 F5 & Ergebnis & Handlungsempfehlung & \enquote{In 3 Monaten erneut prüfen} vs. \enquote{Dringend einen Arzt aufsuchen}, immer mit dem Hinweis, dass das Ergebnis nur eine Einschätzung ist, keinen ärztlichen Rat ersetzt und nur ein Arzt eine Diagnose stellen kann & SkinVision, SkinScreener, DERM Zero & UC-06 \\
-F6 & Monitoring & Läsionsprofil und Verlauf & Jede Hautstelle mit eigener Bildhistorie, Aufnahmen und Hautstellen lassen sich löschen & SkinVision, Miiskin, MoleScope & UC-08, UC-09, UC-12 \\
+F6 & Monitoring & Läsionsprofil und Verlauf & Jede Hautstelle mit eigener Bildhistorie, Aufnahmen und Hautstellen lassen sich löschen & SkinVision, Miiskin~\cite{app-miiskin}, MoleScope~\cite{app-molescope} & UC-08, UC-09, UC-12 \\
 F7 & Monitoring & 2D-Bodymap & Läsionen auf einer Körperübersicht markieren und anzeigen & SkinVision, MoleScope, DermEngine & UC-08, UC-09 \\
-F8 & Engagement & Erinnerungen & Lokale Benachrichtigung auf dem Gerät, Intervall bis 6 Monate einstellbar oder deaktivierbar & SkinVision, UMSkinCheck, MoleScope & UC-10, UC-11 \\
+F8 & Engagement & Erinnerungen & Lokale Benachrichtigung auf dem Gerät, Intervall bis 6 Monate einstellbar oder deaktivierbar & SkinVision, UMSkinCheck~\cite{app-umskincheck}, MoleScope & UC-10, UC-11 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -76,4 +76,4 @@ Bei der Auswahl der MVP-Funktionen haben wir uns an vier Kriterien orientiert:
 \subsection{Machbarkeit im Kurszeitraum}
 \label{sec:machbarkeit}
 
-Bis zur Projektabgabe am 05.02.2027 bleiben ab Mitte November knapp 12 Wochen. In diesem Zeitraum ist der MVP-Umfang mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000 oder dem ISIC-Archiv nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
+Bis zur Projektabgabe am 05.02.2027 bleiben ab Mitte November knapp 12 Wochen. In diesem Zeitraum ist der MVP-Umfang mit 4 Personen realistisch, wenn wir für die KI-Analyse auf ein vortrainiertes Modell zurückgreifen und es mit einem öffentlichen Datensatz wie HAM10000~\cite{tschandl2018ham10000} oder dem ISIC-Archiv~\cite{isic-archive} nachtrainieren. Das größte Risiko liegt in der Genauigkeit des Modells bei Fotos, die mit dem Smartphone aufgenommen wurden. Die 2D-Bodymap ist der aufwendigste Teil. Falls die Zeit knapp wird, ersetzen wir sie durch eine einfache Auswahl der Körperregion aus einer Liste.
