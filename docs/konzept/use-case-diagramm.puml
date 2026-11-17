@@ -15,7 +15,7 @@ rectangle "Smartphone-App (MVP)" {
   usecase "UC-05\nRisiko einstufen" as UC05
   usecase "UC-06\nHandlungsempfehlung anzeigen" as UC06
   usecase "UC-07\nAn Arzt verweisen" as UC07
-  usecase "UC-08\nHautstelle anlegen und verorten" as UC08
+  usecase "UC-08\nHautstelle anlegen und markieren" as UC08
   usecase "UC-09\nVerlauf einsehen" as UC09
   usecase "UC-10\nErinnerung einstellen" as UC10
   usecase "UC-11\nAn Kontrolle erinnert werden" as UC11
