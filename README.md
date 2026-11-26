@@ -2,51 +2,58 @@
 
 Projektarbeit im Modul **Mobile Software Engineering** (WS 26/27, THM, Fachbereich MNI).
 
-> Kurzbeschreibung der App: _TODO_
+SkinSentry ist eine Android-Anwendung zur lokalen Unterstützung bei der Dokumentation und Einschätzung von Hautstellen. Die Verarbeitung erfolgt möglichst direkt auf dem Gerät; für den MVP ist kein Backend vorgesehen.
 
 ## Struktur
 
 | Ordner | Inhalt |
 |---|---|
 | `android/` | Android-App (Kotlin, Jetpack Compose) |
-| `supabase/` | Backend: Datenbank-Migrationen, Edge Functions, Seed-Daten, Supabase-Konfiguration |
 | `docs/konzept/` | Projektkonzept (Prüfungsleistung, LaTeX + BibTeX) |
 | `docs/ui-mock/` | UI-Mocks / Skizzen |
+| `.github/workflows/` | GitHub-Actions-Workflows für Continuous Integration |
 
 ## Setup
 
 ### Voraussetzungen
 
 - [Android Studio](https://developer.android.com/studio)
-- [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started) (oder per `npx supabase ...`)
-- Docker (nur für lokale Supabase-Instanz nötig)
-
-### Backend (Supabase)
-
-```bash
-npx supabase login
-npx supabase link --project-ref <PROJECT_REF>
-npx supabase db pull          # bestehendes Schema als Migration übernehmen
-```
-
-Neue Schema-Änderungen immer als Migration anlegen:
-
-```bash
-npx supabase migration new <name>
-npx supabase db push
-```
+- JDK 17
+- Android SDK
 
 ### Android-App
 
 Siehe [`android/README.md`](android/README.md).
 
-Supabase-URL und Anon-Key gehören in `android/local.properties` (wird nicht eingecheckt):
+## Git-Workflow
 
-```properties
-SUPABASE_URL=https://<PROJECT_REF>.supabase.co
-SUPABASE_ANON_KEY=<anon-key>
+Die Entwicklung erfolgt in separaten Branches.
+
+Für neue Funktionen:
+
+```bash
+git checkout -b feature/<kurze-beschreibung>
 ```
+
+Für Fehlerbehebungen:
+
+```bash
+git checkout -b fix/<kurze-beschreibung>
+```
+
+Änderungen werden anschließend über einen Pull Request nach `main` integriert.
+
+## Continuous Integration
+
+GitHub Actions prüft automatisch:
+
+- den Debug-Build
+- die Unit-Tests
+- Android Lint
+
+Die CI-Pipeline wird bei Pushes auf `feature/**`, `fix/**` und `main` sowie bei Pull Requests nach `main` ausgeführt.
 
 ## Team
 
 - _Name_ – _Rolle_
+
